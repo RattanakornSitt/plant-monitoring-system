@@ -1,0 +1,104 @@
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  width: 100%; /* ให้ครอบคลุมเต็มหน้า */
+  height: 70vh; /* ใช้ความสูงเต็มหน้าจอ */
+  box-sizing: border-box; /* รวม padding ใน width และ height */
+}
+/*.camera-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(247, 247, 247, 0.3);
+  z-index: 1;
+}*/
+
+.camera-container .box-container {
+  position: relative;
+  z-index: 2;
+}
+
+.camera-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.camera-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.camera-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.box-container {
+  display: grid; /* ใช้ Grid Layout เพื่อจัดกล่อง */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* กล่องขยายหรือหดตามพื้นที่ */
+  gap: 20px; /* ระยะห่างระหว่างกล่อง */
+  justify-content: center; /* จัดให้อยู่ตรงกลาง */
+  width: 100%;
+  max-width: 1200px; /* จำกัดความกว้างสูงสุดของกล่องทั้งหมด */
+  margin: 0 auto; /* จัดกล่องให้อยู่ตรงกลางของหน้า */
+  padding: 20px; /* เพิ่ม padding รอบขอบ container */
+  border-radius: 8px; /* ขอบโค้งมน */
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  text-align: center;
+  background-color: #ffffffcc;
+  border-radius: 12px; /* เพิ่มความโค้งมน */
+  padding: 20px; /* เพิ่ม padding ภายในกล่อง */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+}
+
+.box-image:hover {
+  background-color: #e6f7ff; /* เปลี่ยนสีเมื่อ hover */
+  transform: translateY(-5px); /* ยกกล่องขึ้นเล็กน้อย */
+}
+
+.box-image {
+  width: 120px; /* เพิ่มขนาดของรูป */
+  height: 120px;
+  margin-bottom: 15px;
+}
+
+.box-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0);
+  color: #333;
+  border-color: #ffffff00;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}

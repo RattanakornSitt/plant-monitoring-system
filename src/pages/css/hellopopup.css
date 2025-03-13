@@ -1,0 +1,35 @@
+
+/* Popup Container */
+.hello-popup {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    border-color: #414141;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 2;  /* ทำให้อยู่ด้านบนสุด */
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    justify-content: center;
+  }
+  
+  .hello-icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .hello-title {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .hello-message {
+    font-size: 16px;
+    margin: 0;
+  }
+  

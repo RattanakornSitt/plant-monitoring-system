@@ -1,0 +1,59 @@
+/* Overlay สำหรับปิดด้านหลัง */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* สไตล์ของตัว Popup */
+  .popup {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(248, 67, 67, 0.1);
+    width: 300px;
+    max-width: 90%;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #08665a;
+  }
+  
+  .popup-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .popup-actions button {
+    padding: 8px 16px;
+    background-color: #52c0c4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .popup-actions button:hover {
+    background-color: #158a7a;
+  }
+  
+  .notification-image {
+    width: 50%; /* หรือปรับขนาดตามความเหมาะสม */
+    height: auto;
+    max-height: 200px; /* จำกัดความสูง */
+    border-radius: 8px; /* เพิ่มมุมโค้ง */
+    margin-bottom: 16px; /* เพิ่มช่องว่างระหว่างภาพกับข้อความ */
+    object-fit: cover; /* ป้องกันภาพผิดรูป */
+    margin: 16px auto; /* ช่องว่างบน-ล่าง 16px และกึ่งกลางซ้าย-ขวา */
+    display: block; /* เพื่อให้ margin auto ทำงานได้ */
+  }
+  

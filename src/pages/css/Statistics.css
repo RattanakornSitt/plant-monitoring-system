@@ -1,0 +1,97 @@
+/* Container for Statistics page */
+.statistics-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Main Content Section */
+  .statistics-content {
+    text-align: center;
+    z-index: 100;
+    background-color: rgb(255, 255, 255);
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 10px 30px;
+  }
+  
+  /* Heading */
+  .statistics-header {
+    font-size: 3rem;
+    color: #333;
+    margin-top: 30px;
+  }
+  
+  /* Date Range Buttons */
+  .date-range-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .date-range-btn {
+    background-color: #44c4b9;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    margin: 0 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .date-range-btn:hover {
+    background-color: #79eeee;
+  }
+  
+  /* Container for Graphs */
+  .charts-container {
+    display: flex;
+    justify-content: space-between; /* Ensure graphs are in a row */
+    margin-top: 50px;
+    z-index: 1000;
+  }
+  
+  /* Graph Section */
+  .chart-section {
+    width: 48%; /* Ensure each graph takes up 48% of the container width */
+    margin-bottom: 50px;
+  }
+  
+  .chart-heading {
+    font-size: 2rem;
+    color: #333;
+    margin: 30px 0;
+  }
+  
+  /* Add Data Buttons */
+  .add-data-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .add-data-btn {
+    background-color: #28a745;
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    margin: 0 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-data-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Graph canvas styling */
+  canvas {
+    width: 100%;
+    height: 300px;
+    max-width: 1100px;
+    margin: 0 auto;
+    z-index: 1001;
+  }
+  

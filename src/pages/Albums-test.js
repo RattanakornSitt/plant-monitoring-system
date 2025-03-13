@@ -1,0 +1,102 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // เพิ่ม useNavigate
+import './css/Albums_T.css';
+import { db } from './firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
+
+function Album_T() {
+  const [albums, setAlbums] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()); // เดือนปัจจุบัน
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // ปีปัจจุบัน
+  const [datesWithImages, setDatesWithImages] = useState([]); // เก็บวันที่ที่มีรูป
+  const navigate = useNavigate(); // ใช้สำหรับการนำทาง
+
+  useEffect(() => {
+    const fetchPlantImages = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'PLANT_IMAGES'));
+        const plantImagesData = querySnapshot.docs.map(doc => doc.data());
+
+        const uniqueDates = [...new Set(plantImagesData.map(album => album.date))]; // วันไหนมีรูป
+        setDatesWithImages(uniqueDates);
+
+        const groupedByDate = uniqueDates.map(date => ({
+          date,
+          images: plantImagesData.filter(album => album.date === date),
+        }));
+
+        setAlbums(groupedByDate);
+      } catch (error) {
+        console.error('Error getting documents: ', error);
+      }
+    };
+
+    fetchPlantImages();
+  }, []);
+
+  const getDaysInMonth = (month, year) => {
+    const date = new Date(year, month, 1);
+    const days = [];
+    while (date.getMonth() === month) {
+      days.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    return days;
+  };
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date); // Set the selected date
+    navigate(`/pages/Album2/${date}`); // Navigate to Album2 with the selected date
+  };
+
+  const handleMonthChange = (delta) => {
+    const newMonth = currentMonth + delta;
+    if (newMonth < 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else if (newMonth > 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(newMonth);
+    }
+  };
+
+  const daysInMonth = getDaysInMonth(currentMonth, currentYear);
+
+  return (
+    <div className="albumsT-container">
+      <Link to="/pages/camera" className="back-button">
+        <img src="/img/back-icon.png" alt="Back" className="back-icon" />
+        <span>Albums</span>
+      </Link>
+      <h2 className="albumsT-subtitle">Butterhead</h2>
+
+      <div className="calendar-header">
+        <button onClick={() => handleMonthChange(-1)}>&lt;</button>
+        <span>{`${currentMonth + 1} / ${currentYear}`}</span>
+        <button onClick={() => handleMonthChange(1)}>&gt;</button>
+      </div>
+
+      <div className="calendar-grid">
+        {daysInMonth.map((day, index) => {
+          const dateStr = `${day.getFullYear()}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${day.getDate().toString().padStart(2, '0')}`;
+          const hasImage = datesWithImages.includes(dateStr); // Check if there are images for this day
+
+          return (
+            <div
+              key={index}
+              className={`calendar-day ${hasImage ? 'has-image' : ''} ${selectedDate === dateStr ? 'selected' : ''}`}
+              onClick={hasImage ? () => handleDateClick(dateStr) : null}
+            >
+              <span>{day.getDate()}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default Album_T;

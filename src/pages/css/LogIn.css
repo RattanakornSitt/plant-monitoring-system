@@ -1,0 +1,187 @@
+/* Overlay สำหรับ pop-up */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังดำโปร่งใส */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* นำ overlay ให้อยู่ด้านหน้าสุด */
+}
+
+/* กล่อง pop-up */
+.popup-l-content {
+  background-color: #ffffff; /* สีพื้นหลังขาว */
+  width: 400px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+  text-align: center;
+  position: relative;
+  overflow-y: auto; /* ให้สามารถเลื่อนหน้าจอในกรณีที่เนื้อหามาก */
+  max-height: 90vh; /* จำกัดความสูงไม่ให้เกิน 90% ของหน้าจอ */
+}
+
+/* หัวข้อ Log In */
+.popup-l-content h2 {
+  font-size: 24px;
+  color: rgb(58, 30, 30); /* ใช้สีเดียวกับ navbar */
+  margin-bottom: 20px;
+}
+
+/* Form การกรอกข้อมูล */
+.popup-l-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-l-content label {
+  color: rgb(34, 32, 32);
+  font-weight: bold;
+  text-align: left;
+}
+
+/* ปรับขนาดช่องกรอกข้อมูลให้เล็กลง */
+.popup-l-content input[type="text"],
+.popup-l-content input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px; /* ปรับขนาดฟอนต์ให้เล็กลง */
+  width: 100%; /* ให้ช่องกรอกข้อมูลเต็มความกว้าง */
+  box-sizing: border-box; /* ให้ช่องกรอกข้อมูลใช้พื้นที่เต็ม */
+}
+
+/* Remember me checkbox */
+.remember-me {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(58, 30, 30);
+  justify-content: flex-start; /* จัดการให้จัดเรียงในแนวขวาง */
+}
+
+.remember-me label {
+  margin-left: 8px;
+  color: rgb(34, 32, 32);
+}
+
+/* ปุ่ม Log in */
+.popup-login-btn {
+  background-color: #2fbea7;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ลิงก์ Forgot password และ Sign up */
+.popup-links {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #1c4b48;
+}
+
+.popup-links a {
+  color: #1c4b48;
+  text-decoration: none;
+}
+
+.popup-links a:hover {
+  text-decoration: underline;
+}
+
+/* Adjustments for mobile */
+@media (max-width: 500px) {
+  .popup-l-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .popup-l-content h2 {
+    font-size: 20px;
+  }
+
+  .popup-l-content input[type="text"],
+  .popup-l-content input[type="password"] {
+    font-size: 12px;
+  }
+
+  .popup-login-btn {
+    font-size: 14px;
+  }
+
+  .google-login-btn {
+    font-size: 14px;
+  }
+}
+
+/* ปุ่ม Continue with Google */
+.google-login-btn {
+  background-color: #ffffff;
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* เว้นระยะห่างระหว่างโลโก้กับข้อความ */
+}
+
+.google-login-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.google-logo {
+  width: 18px;
+  height: 18px;
+}
+
+/* เพิ่มความสวยงามให้กับปุ่มจำรหัสผ่าน */
+.reset-password-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reset-password-form input {
+  padding: 10px;
+  margin: 10px 0;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.reset-password-form button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Success and error messages */
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}

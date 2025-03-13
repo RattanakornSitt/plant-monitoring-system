@@ -1,0 +1,78 @@
+/* Real-time Video Page Styles */
+.real-time-video-container {
+    font-family: Arial, sans-serif;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 1000;
+}
+
+/* Real-time Video Content Section */
+.real-time-video-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.real-time-video-content h1 {
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+/* White Container for Video */
+.video-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+video {
+    width: 100%;
+    max-width: 1200px;
+    height: 500px; /* Increased height for a bigger video display */
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow around video */
+    
+}
+
+/* ปรับสไตล์ของ .video-box */
+.video-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative; /* เพิ่ม position relative เพื่อให้ปุ่มขยายอยู่ภายใน */
+    z-index: 1000;
+}
+
+/* ปรับตำแหน่งของปุ่ม Fullscreen ให้อยู่ด้านล่างกลางของ video box */
+.fullscreen-button {
+    position: absolute;
+    bottom: 5px; /* ระยะห่างจากด้านล่าง */
+    left: 50%;
+    transform: translateX(-50%); /* กะระยะให้ปุ่มอยู่กลาง */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+.fullscreen-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* ปรับขนาดเมื่ออยู่ในโหมดเต็มจอ */
+video:fullscreen {
+    width: 100%;
+    height: 100%;
+}

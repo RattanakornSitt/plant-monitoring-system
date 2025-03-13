@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "project-plant-monitoring-b580a",
+  "private_key_id": "45a7821e340ff7a4ccae610dbfc8ea5bd1d9e767",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCs89JAbKrydICA\nmeOIXPPqdvgqVDLQgdOP6hjtxQEO/1aBODmg5QH4wgkCb0KzYkIQoHX6ikjefh0V\nYbyOi/ubrGMomHQLLswXri9FMkPCOWMe8+Sho+oIgr9gNd97itgDjzkVQGquoXMG\n34ibZYIeg6fC9FOguoJzaxqFo4jG4Ww5z4HF8I3aU7DKYq7PZgG4kl/dDv1hUjOz\n/xVkR7uzCikZUPhWYb3YnixLWjPirKw43oquRX/syWuCODdlPM6NypPePp6OwYCD\ntVL0rh0BEaymMCIxrUnf0hIvmelWbaN/Bpoa/6FP3fsjJXJsk99c3vN2B2fhW7RD\nK8EmPzwxAgMBAAECggEACXkugFBjebXXbxPe0nKS+roLBFiJ0wF1eunN9UIn+XAT\nhy7y+yToG33XW/6HpwdACqSbab6G2McMJUZt+1ngDYofAVN+cbldvQNRvAbRjtMx\nYnnmAVOW52HwBR9WTzBO/jzrWcZmQYv+3rbCRw7DlpPMDeHvrbthl1xbvsuzG3+Y\n5eiEcDmaQWBJPp9yu6IhwN18xO4ojuPZ4i6/5o/+eS0f2EpwsJ15PsXDnCCLgBf2\nfWJIdoHhAge7Ee+fQ9USkLlZNa5KiulXivMz+NwChK60d/ZKmNl78tcro09q8bS7\n2C80vRdSO9jE9vn5KEKirrB6F/rDoWMnN6u7BeLF5QKBgQDeJBWJ0e+J/daztJeV\nk4pSatho7ODXQnelL1X2kBUjYAmWs5+THhd9APwX1exRKf8ogMQPjN9HIxZ1Os79\n/WbnN83WJIHNBnKooeAKrnhgEVhc99aHSA+OChTSlahmmBL6TiBaXxPA6fqwn0Zp\naJZAzt7oYPRq7P0jNWbPrSIIxQKBgQDHUGf8bbv8ABtQtRz+zl1pzuUVDnVSPiGn\nvkFRFUeBXeN002OzMq4jg7/KaB48iB2Pmph35o7+nq37EBxsIYyZmaKIjwnEswP8\nCRL08HAnLkk/hDhwmGtPqfGhVrnQZVdlCdDOhPzFzb0mxOoGoLNU+JFcgiQ4cAaX\n11etF6RkfQKBgB37BsEkCU05ahm03OR+FiQLcYuvtKS4vscXfWWaio/MrV6efYHw\nhMEFOgDJiWxm254OyudCXvwN20EVH8ydv56jJG+rW61dGmpx9nfaljp4/NEHTffS\nHO9Rov/M3P6DtcP8eVdZD6Rwr7nYtTsSt3ylruXz9+jadUukMG0E89v1AoGBAJaQ\n4z0KGIxR+FCLwQ+sDV008lFpzq8GSJ5TVzxNeur7ZiyG1DY2/t3NVUEuTkkj+lDV\nVICfJz6p2Hxku1PkNDaEnQfUJmj1YvkuUae/SroOeT8GPyyvt8FCfEqJHW2UYOTu\n+VJJnDpBJbb34mKHW3HBJO5hUcNgvVpPTuhvh7xxAoGAc1OIKv6ceC+XH398ucLo\nb1NTU0w35xFTCSgoVgF47l+Nxjd53LY3pXFcnKySDn22/vmUdZ9SgrU7kCP6nAFp\n2DQONiAGrqeXJcQSQFn1clOjYJppYP34h7XHeF4tXm02h69JjKYb0cHJYwCF6Wp2\nfH8M3asvaXfA+hHpQ/TfSUg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "service-account@project-plant-monitoring-b580a.iam.gserviceaccount.com",
+  "client_id": "105885917296275424753",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/service-account%40project-plant-monitoring-b580a.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

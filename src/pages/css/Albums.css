@@ -1,0 +1,84 @@
+.albums-container {
+  padding: 20px;
+  text-align: center;
+}
+.albums-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  /*background-color: #ffffff;*/
+}
+.albums-card {
+  position: relative;
+  z-index: 1;
+}  
+.back-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+h2.albums-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.selected-date {
+  font-size: 18px;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.no-album-message {
+  font-size: 18px;
+  color: #888;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.albums-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.album-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;  /* จัดข้อความให้อยู่กึ่งกลาง */
+}
+
+.album-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.album-image {
+  width: 50%;
+  height: 50%;
+  margin-bottom: 10px;
+}
+
+.album-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}

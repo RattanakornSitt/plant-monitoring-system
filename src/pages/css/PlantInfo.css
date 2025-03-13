@@ -1,0 +1,71 @@
+/* Plant Information Page Styles */
+.plant-information-container {
+    font-family: Arial, sans-serif;
+    padding: 60px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Plant Information Content Section */
+.plant-information-content {
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.plant-information-content h1 {
+    font-size: 3rem;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+.butterhead-description {
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Container for Image and Information Box */
+.plant-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Plant Image Box */
+.plant-image-box img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Plant Information Box */
+.plant-info-box {
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    text-align: left;
+}
+
+.plant-info-box h2 {
+    font-size: 2rem;
+    color: #1b858d;
+    margin-bottom: 20px;
+}
+
+.plant-info-box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.plant-info-box li {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}

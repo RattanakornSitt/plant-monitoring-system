@@ -1,0 +1,96 @@
+.notification-card {
+  display: flex;
+  flex-direction: column; /* Stack text and images vertically */
+  align-items: flex-start; /* Align text to the left */
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #ddd;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  position: relative;
+  width: 100%; /* กำหนดให้การ์ดเต็มความกว้าง */
+  max-width: 1000px; /* จำกัดขนาดสูงสุดของการ์ด */
+  box-sizing: border-box; /* รวม padding และ border ในขนาดของการ์ด */
+  z-index: 100;
+}
+
+.new-tag {
+  background-color: #ff6347;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  position: absolute;
+  top: 0px;
+  right: 15px;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between; /* Plant name on the left, date on the right */
+  align-items: center;
+  width: 100%; /* Ensures the header spans the width of the card */
+  margin-bottom: 10px;
+}
+
+.notification-header h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.notification-header .notification-date {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+.notification-images {
+  display: flex;
+  justify-content: center; /* Center the images horizontally */
+  flex-wrap: wrap;
+  gap: 10px; /* Space between images */
+  margin-top: 15px;
+}
+
+.notification-images img {
+  width: 100px; /* Set a fixed width for images */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Ensure the card content is properly spaced */
+.notification-card p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.notification-card strong {
+  font-weight: bold;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notification-card {
+    padding: 15px;
+  }
+
+  .notification-card h2,
+  .notification-card p {
+    text-align: left; /* Align text to the left */
+    width: 100%;
+  }
+
+  .notification-date {
+    position: absolute;
+    top: 10px; /* Adjust the distance from the top */
+    right: 20px; /* Align to the right */
+    font-size: 14px;
+    color: #333;
+  }
+}

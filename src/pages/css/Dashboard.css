@@ -1,0 +1,87 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    position: relative;
+    padding-bottom: 50px; /* เพิ่มพื้นที่ด้านล่างเพื่อไม่ให้เนื้อหาติดกับ footer */
+
+  }
+  .dashboard-container h1 {
+    color: #000000;
+  }
+  
+  .services-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .service-box {
+    display: flex;               /* ใช้ flexbox เพื่อจัดตำแหน่ง */
+    flex-direction: column;      /* ตั้งค่าการจัดแนวในแนวตั้ง */
+    justify-content: center;     /* จัดกลางในแนวตั้ง */
+    align-items: center;         /* จัดกลางในแนวนอน */
+    border: 1px solid #ddd;      /* ขอบสีเทาอ่อน */
+    padding: 20px;
+    text-align: center;          /* ข้อความใน service box จะจัดตรงกลาง */
+    cursor: pointer;            /* เปลี่ยน cursor เมื่อ hover */
+    border-radius: 8px;          /* ขอบกลม */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* เงาสีเทา */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* การเปลี่ยนแปลงเมื่อ hover */
+    background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งใส */
+    height: 100%;               /* ใช้ 100% ความสูงของกล่อง */
+  }
+  
+  .service-box img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .service-box img {
+    max-width: 250px;
+    margin-bottom: 10px;
+  }
+  
+  .service-box h2 {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+  
+  .service-box p {
+    color: #363232;
+    font-size: 18px;
+  }
+
+  .push-notification-container {
+    margin: 20px; /* ปรับระยะห่างจากขอบ */
+    text-align: center; /* จัดปุ่มให้อยู่กลาง */
+  }
+  
+  .push-notification-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .push-notification-btn:hover {
+    background-color: #45a049;
+  }
+  .push-notification-btn {
+    position: relative;
+    z-index: 10; /* ให้แน่ใจว่าปุ่มมีค่ามากกว่าค่าของปุ่มอื่น ๆ */
+  }
+    

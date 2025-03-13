@@ -1,0 +1,353 @@
+/* App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #bbf3eb;
+  color: rgb(58, 30, 30);
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.navbar .logo h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center; /* ให้ทุกอย่างอยู่ในแนวเดียวกันในแนวนอน */
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: rgb(58, 30, 30);
+}
+
+.nav-links .login-btn {
+  background-color: #2fbea7;
+  color: #ffffff;
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+/* User profile styling */
+.user-profile {
+  display: flex;
+  align-items: center; /* จัดให้รูปโปรไฟล์และปุ่มออกจากระบบอยู่ในแนวเดียวกัน */
+  margin-left: 20px;
+}
+
+.user-profile .user-photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-profile button {
+  padding: 5px 10px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.user-profile button:hover {
+  background-color: #ff4500;
+}
+
+.nav-links span {
+  color: white;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  color: rgb(34, 32, 32);
+  position: relative;
+}
+
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(247, 247, 247, 0.3);
+  z-index: 1;
+}
+
+.main-content h2,
+.main-content p,
+.main-content .auth-buttons {
+  position: relative;
+  z-index: 2;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.auth-buttons button {
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.login-btn {
+  background-color: #1c4b48;
+  color: rgb(255, 255, 255);
+  border: 2px solid #1c4b48;
+}
+
+.sign-in-btn {
+  background-color: transparent;
+  color: #0c2422;
+  border: 2px solid #1c4b48;
+  border-radius: 15px;
+}
+
+.footer {
+  text-align: center;
+  background-color: #bbf3eb;
+  color: rgb(58, 30, 30);
+  padding: 10px 0;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+/* Overlay สำหรับ pop-up */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังดำโปร่งใส */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* นำ overlay ให้อยู่ด้านหน้าสุด */
+}
+
+.happy-popup {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  border-color: #414141;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 2;  /* ทำให้อยู่ด้านบนสุด */
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  justify-content: center;
+}
+
+.happy-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.happy-title {
+  font-size: 24px;
+  margin: 0;
+}
+
+.happy-message {
+  font-size: 16px;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.user-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.logout-btn {
+  background-color: #0e8696;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}  
+
+.logout-btn:hover {
+  background-color: #44b4b4;
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังโปร่งใส */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.notification-container {
+  position: relative;
+}
+
+.notification-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 18px;
+}
+
+.notification-list li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+  display: flex; /* ใช้ Flexbox */
+  align-items: center; /* จัดแนวตรงกลางแนวตั้ง */
+  justify-content: space-between; /* จัดข้อความในแต่ละรายการ */
+  gap: 20px; /* เพิ่มช่องว่างระหว่างข้อความกับไอคอน (ถ้ามี) */
+}
+
+.notification-list li.unread {
+  font-weight: bold;
+  background-color: #add8e6; /* สีฟ้าอ่อน */
+}
+
+.notification-list li a {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+  padding-left: 10px;
+  display: flex;
+}
+
+.notification-icon img {
+  width: 23px; /* กำหนดความกว้างของไอคอน */
+  height: 25px; /* กำหนดความสูงของไอคอน */
+  cursor: pointer; /* เพิ่ม cursor pointer เพื่อแสดงว่าไอคอนสามารถคลิกได้ */
+}
+
+.notification-popover {
+  position: absolute;
+  top: 40px;
+  right: -20px;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.notification-list li:last-child {
+  border-bottom: none;
+}
+
+.notification-popover::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* ตำแหน่งของลูกศร */
+  right: 20px; /* ตำแหน่งปลายแหลมตรงกับปุ่ม */
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent white transparent; /* ลูกศรสีเดียวกับพื้นหลัง */
+}
+
+.view-all-link {
+  display: block; /* ทำให้ Link เป็นบล็อกเพื่อให้สามารถใช้ margin ได้ */
+  margin-bottom: 30px; /* เพิ่มระยะห่างด้านล่าง */
+  text-align: center; /* ถ้าต้องการให้ลิงก์อยู่กลาง */
+}
+
+.new-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #00bcd4;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.unread {
+  font-weight: bold;
+}
