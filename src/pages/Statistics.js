@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './css/Statistics.css';
-import { db } from './firebaseConfig'; // Firebase functions
-import { useNavigate } from 'react-router-dom'; // ใช้ useNavigate แทน Link
-import { collection, addDoc, getDocs, query, orderBy, where, limit } from "firebase/firestore"; // Firestore functions
-import { Line } from 'react-chartjs-2';  // นำเข้า Line chart จาก react-chartjs-2
+import { db } from './firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,9 +13,8 @@ import {
   Title,
   Tooltip,
   Legend
-} from 'chart.js';  // นำเข้าโมดูลต่างๆ ของ Chart.js
+} from 'chart.js';
 
-// ลงทะเบียนโมดูลที่ใช้ใน Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -27,105 +26,107 @@ ChartJS.register(
 );
 
 function Statistics() {
-  const navigate = useNavigate(); // สร้างตัวแปร navigate สำหรับใช้ในการนำทาง
-  const [diseaseChartData, setDiseaseChartData] = useState({
-    labels: [], 
-    datasets: []
-  });
-  const [pestChartData, setPestChartData] = useState({
-    labels: [], 
-    datasets: []
-  });
-  const [selectedRange, setSelectedRange] = useState(7); // Default to 7 days
+  const navigate = useNavigate();
+  const [selectedRange] = useState(7);
+  const [diseaseChartData, setDiseaseChartData] = useState({ labels: [], datasets: [] });
+  const [pestChartData, setPestChartData] = useState({ labels: [], datasets: [] });
+  const [summaryData, setSummaryData] = useState([]);
 
   useEffect(() => {
-    // Fetch data based on selected range
     const fetchData = async () => {
       const endDate = new Date();
       const startDate = new Date();
       startDate.setDate(endDate.getDate() - selectedRange);
 
-      // Convert start and end dates to timestamps for querying
-      const startTimestamp = startDate.getTime();
-      const endTimestamp = endDate.getTime();
-
-      // Get disease data
       const diseaseCollectionRef = collection(db, 'diseaseData');
-      const diseaseQuery = query(
-        diseaseCollectionRef,
-        where("date", ">=", startTimestamp),
-        where("date", "<=", endTimestamp),
-        orderBy("date", "desc"), // Order by date
-        limit(10) // Limit to the most recent 10 entries
-      );
-      
-      // Get pest data
       const pestCollectionRef = collection(db, 'pestData');
-      const pestQuery = query(
-        pestCollectionRef,
-        where("date", ">=", startTimestamp),
-        where("date", "<=", endTimestamp),
-        orderBy("date", "desc"),
-        limit(10)
-      );
+
+      const diseaseQuery = query(diseaseCollectionRef, orderBy("date", "desc"), limit(50));
+      const pestQuery = query(pestCollectionRef, orderBy("date", "desc"), limit(50));
 
       try {
-        const [diseaseSnapshot, pestSnapshot] = await Promise.all([getDocs(diseaseQuery), getDocs(pestQuery)]);
+        const [diseaseSnapshot, pestSnapshot] = await Promise.all([
+          getDocs(diseaseQuery),
+          getDocs(pestQuery)
+        ]);
 
-        let diseaseData = { healthy: 0, leafSpot: 0, leafBlight: 0 };
-        let pestData = { healthy: 0, caterpillar: 0, leafworm: 0 };
+        let diseaseData = [];
+        let pestData = [];
+        let labels = [7, 14, 21, 30];
+        let summary = [];
 
-        diseaseSnapshot.forEach((doc) => {
-          const data = doc.data();
-          const diseaseDate = new Date(data.date);  // แปลงจาก string เป็น Date object
-          const timestamp = diseaseDate.getTime();  // แปลงเป็น timestamp
+        labels.forEach(days => {
+          let diseaseCounts = { healthy: 0, leafSpot: 0, leafBlight: 0, total: 0 };
+          let pestCounts = { healthy: 0, caterpillar: 0, leafworm: 0, total: 0 };
+          const rangeStart = new Date();
+          rangeStart.setDate(endDate.getDate() - days);
+          console.log("Start Date:", startDate);
+          console.log("End Date:", endDate);
 
-          // ตอนนี้สามารถใช้ timestamp ได้ในการคำนวณช่วงเวลา
-          if (timestamp >= startTimestamp && timestamp <= endTimestamp) {
-            diseaseData.healthy += parseFloat(data.healthy) || 0;
-            diseaseData.leafSpot += parseFloat(data.leafSpot) || 0;
-            diseaseData.leafBlight += parseFloat(data.leafBlight) || 0;
-          }
+
+          diseaseSnapshot.forEach((doc) => {
+            const data = doc.data();
+            const timestamp = new Date(data.date).getTime();
+            if (timestamp >= rangeStart.getTime() && timestamp <= endDate.getTime()) {
+              diseaseCounts.healthy += parseFloat(data.healthy) || 0;
+              diseaseCounts.leafSpot += parseFloat(data.leafSpot) || 0;
+              diseaseCounts.leafBlight += parseFloat(data.leafBlight) || 0;
+            }
+          });
+          diseaseCounts.total = diseaseCounts.healthy + diseaseCounts.leafSpot + diseaseCounts.leafBlight;
+
+          pestSnapshot.forEach((doc) => {
+            const data = doc.data();
+            const timestamp = new Date(data.date).getTime();
+            if (timestamp >= rangeStart.getTime() && timestamp <= endDate.getTime()) {
+              pestCounts.healthy += parseFloat(data.healthy) || 0;
+              pestCounts.caterpillar += parseFloat(data.caterpillar) || 0;
+              pestCounts.leafworm += parseFloat(data.leafworm) || 0;
+            }
+          });
+          pestCounts.total = pestCounts.healthy + pestCounts.caterpillar + pestCounts.leafworm;
+
+          summary.push({
+            range: `${days} Days`,
+            diseaseHealthy: (diseaseCounts.healthy / diseaseCounts.total) * 100 || 0,
+            leafSpot: (diseaseCounts.leafSpot / diseaseCounts.total) * 100 || 0,
+            leafBlight: (diseaseCounts.leafBlight / diseaseCounts.total) * 100 || 0,
+            pestHealthy: (pestCounts.healthy / pestCounts.total) * 100 || 0,
+            caterpillar: (pestCounts.caterpillar / pestCounts.total) * 100 || 0,
+            leafworm: (pestCounts.leafworm / pestCounts.total) * 100 || 0
+          });
+
+          diseaseData.push({
+            healthy: (diseaseCounts.healthy / diseaseCounts.total) * 100 || 0,
+            leafSpot: (diseaseCounts.leafSpot / diseaseCounts.total) * 100 || 0,
+            leafBlight: (diseaseCounts.leafBlight / diseaseCounts.total) * 100 || 0
+          });
+
+          pestData.push({
+            healthy: (pestCounts.healthy / pestCounts.total) * 100 || 0,
+            caterpillar: (pestCounts.caterpillar / pestCounts.total) * 100 || 0,
+            leafworm: (pestCounts.leafworm / pestCounts.total) * 100 || 0
+          });
         });
 
-        pestSnapshot.forEach((doc) => {
-          const data = doc.data();
-          const pestDate = new Date(data.date);  // แปลงจาก string เป็น Date object
-          const timestamp = pestDate.getTime();  // แปลงเป็น timestamp
+        setSummaryData(summary);
 
-          if (timestamp >= startTimestamp && timestamp <= endTimestamp) {
-            pestData.healthy += parseFloat(data.healthy) || 0;
-            pestData.caterpillar += parseFloat(data.caterpillar) || 0;
-            pestData.leafworm += parseFloat(data.leafworm) || 0;
-          }
-        });
-
-        // Set chart data for disease
         setDiseaseChartData({
-          labels: ['Healthy', 'Leaf Spot', 'Leaf Blight'],
+          labels: labels.map(l => `${l} Days`),
           datasets: [
-            {
-              label: 'Disease Occurrence',
-              data: [diseaseData.healthy, diseaseData.leafSpot, diseaseData.leafBlight],
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              borderColor: 'rgb(12, 99, 99)',
-              borderWidth: 1,
-            }
-          ],
+            { label: 'Healthy', data: diseaseData.map(d => d.healthy), borderColor: 'green', fill: false },
+            { label: 'Leaf Spot', data: diseaseData.map(d => d.leafSpot), borderColor: 'red', fill: false },
+            { label: 'Leaf Blight', data: diseaseData.map(d => d.leafBlight), borderColor: 'blue', fill: false }
+          ]
         });
 
-        // Set chart data for pests
         setPestChartData({
-          labels: ['Healthy', 'Cabbage Caterpillar', 'Leafworm'],
+          labels: labels.map(l => `${l} Days`),
           datasets: [
-            {
-              label: 'Pest Occurrence',
-              data: [pestData.healthy, pestData.caterpillar, pestData.leafworm],
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              borderColor: 'rgb(112, 54, 228)',
-              borderWidth: 1,
-            }
-          ],
+            { label: 'Healthy', data: pestData.map(p => p.healthy), borderColor: 'green', fill: false },
+            { label: 'Cabbage Caterpillar', data: pestData.map(p => p.caterpillar), borderColor: 'orange', fill: false },
+            { label: 'Leafworm', data: pestData.map(p => p.leafworm), borderColor: 'purple', fill: false }
+          ]
         });
 
       } catch (error) {
@@ -136,38 +137,78 @@ function Statistics() {
     fetchData();
   }, [selectedRange]);
 
+  // Chart.js options with enhanced Y-axis display
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 10,
+          max: 100,
+          callback: function (value) { return `${value}%`; } // Show percentage on Y-axis
+        }
+      }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `${context.dataset.label}: ${context.raw.toFixed(2)}%`; // Show values as percentage
+          }
+        }
+      }
+    }
+  };
+
   return (
     <div className="statistics-container">
-      {/* Back Button */}
       <button className="back-button" onClick={() => navigate('/pages/camera')}>
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
         <span>Back</span>
       </button>
 
-      {/* Statistics Section */}
       <section className="statistics-content">
         <h1>Statistics</h1>
-
-        {/* Date Range Selector */}
-        <div className="date-range-buttons">
-          <button className="date-range-btn" onClick={() => setSelectedRange(7)}>7 Days</button>
-          <button className="date-range-btn" onClick={() => setSelectedRange(14)}>14 Days</button>
-          <button className="date-range-btn" onClick={() => setSelectedRange(30)}>30 Days</button>
+        <div className="charts-container">
+          <div className="chart-section">
+            <h2>Disease Occurrence (%)</h2>
+            <Line data={diseaseChartData} options={chartOptions} />
+          </div>
+          <div className="chart-section">
+            <h2>Pest Occurrence (%)</h2>
+            <Line data={pestChartData} options={chartOptions} />
+          </div>
         </div>
 
-        {/* Container with Graphs */}
-        <div className="charts-container">
-          {/* Disease Occurrence Graph */}
-          <div className="chart-section">
-            <h2 className="chart-heading">Disease Occurrence</h2>
-            <Line data={diseaseChartData} />
-          </div>
-
-          {/* Pest Occurrence Graph */}
-          <div className="chart-section">
-            <h2 className="chart-heading">Pest Occurrence</h2>
-            <Line data={pestChartData} />
-          </div>
+        <div className="summary-table-container">
+          <h2>Summary Data</h2>
+          <table className="summary-table-content">
+            <thead>
+              <tr>
+                <th>Range</th>
+                <th>Healthy (Disease)</th>
+                <th>Leaf Spot</th>
+                <th>Leaf Blight</th>
+                <th>Healthy (Pest)</th>
+                <th>Caterpillar</th>
+                <th>Leafworm</th>
+              </tr>
+            </thead>
+            <tbody>
+              {summaryData.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.range}</td>
+                  <td>{row.diseaseHealthy.toFixed(2)}%</td>
+                  <td>{row.leafSpot.toFixed(2)}%</td>
+                  <td>{row.leafBlight.toFixed(2)}%</td>
+                  <td>{row.pestHealthy.toFixed(2)}%</td>
+                  <td>{row.caterpillar.toFixed(2)}%</td>
+                  <td>{row.leafworm.toFixed(2)}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
     </div>
