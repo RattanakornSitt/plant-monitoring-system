@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "./firebaseConfig"; // Firebase auth and Google provider
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup } from "firebase/auth";
 import { db } from "./firebaseConfig";
-import { collection, query, where, getDocs, setDoc, doc, getDoc } from "firebase/firestore"; // Firestore functions
+import { collection, query, where, getDocs, setDoc, doc, getDoc, onSnapshot } from "firebase/firestore"; // Firestore functions
 import "./css/LogIn.css";
 
 function LogIn({ togglePopup, toggleToSignUp }) {
@@ -107,7 +107,7 @@ function LogIn({ togglePopup, toggleToSignUp }) {
         }
 
         // ถ้าผู้ใช้เป็น Admin
-        if (userData.username === "Admin") {
+        if (userData.username === "myself") {
           setIsAdmin(true);
         } else {
           togglePopup();
@@ -167,7 +167,7 @@ function LogIn({ togglePopup, toggleToSignUp }) {
   };
 
   return (
-    <div className="popup-overlay" onClick={togglePopup}>
+    <div className="popup-l-overlay" onClick={togglePopup}>
       <div className="popup-l-content" onClick={(e) => e.stopPropagation()}>
         <h2>Log In</h2>
 

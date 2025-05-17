@@ -13,6 +13,7 @@ import Album1T from './pages/Album2';
 import Album2T from './pages/Album3';
 import Album_T from './pages/Albums-test';
 import Main from "./pages/main";
+import Overview from "./pages/overview";
 import Statistics from "./pages/Statistics";
 import { NotificationContext } from "./components/NotificationContext";
 import Notifications from "./pages/Notifications";
@@ -22,6 +23,11 @@ import { UserProvider } from "./pages/UserContext"; // นำเข้า UserPr
 import HelloPopup from './pages/HelloPopup';
 import NotificationPopup from './components/NotificationPopup';
 import CameraPage from './pages/CameraPage';  // นำเข้าเพจกล้องใหม่
+import Support from './pages/Support';
+import AdminDashboard from './pages/AdminDashboard';
+import ManageUser from "./pages/ManageUser";
+import ManageSystemProblems from "./pages/ManageProblems";
+import ProtectedRoute from './pages/PrivateRoute'; 
 import './App.css';
 import { NotificationProvider } from './components/NotificationContext';
 
@@ -30,13 +36,16 @@ function AppContent() {
   const { showPopup, setShowPopup, newNotification } = useContext(NotificationContext);
   const [isHelloPopupOpen, setIsHelloPopupOpen] = useState(false);
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(false);
+  const { setNewNotification } = useContext(NotificationContext);
   const [setUser] = useState(null);  // State to hold logged-in user data
   const [isPopupOpen, setIsPopupOpen] = useState(false);  // State for the login reminder popup
   const [isAddCameraPopupOpen, setIsAddCameraPopupOpen] = useState(false); // State สำหรับ Add Camera Popup
-  const [ setCameras] = useState([ // State สำหรับจัดการกล้อง
+  const [setCameras] = useState([ // State สำหรับจัดการกล้อง
     { cameraID: "0001", cameraName: "Camera 1", image: "/img/plant-icon.png" }
   ]);
   const location = useLocation(); // Get current route
+
+  // ฟังก์ชันเปิด/ปิด Popup
 
   const toggleLogInPopup = () => {
     setIsLogInPopupOpen(!isLogInPopupOpen);
@@ -79,8 +88,8 @@ function AppContent() {
           </div>
           <div className="nav-links">
             <a href="#services" onClick={handleServicesClick}>Services</a>  {/* Trigger login popup */}
-            <a href="#about">About Us</a>
-            <a href="#support">Support</a>
+            <a href="/pages/aboutus">About Us</a>
+            <a href="/pages/support">Support</a>
             <button className="login-btn" onClick={toggleLogInPopup}>Log in</button>
           </div>
         </nav>
@@ -103,22 +112,28 @@ function AppContent() {
           </main>
         } />
 
-        {/* Layout used for all other pages */}
-        <Route path="/pages/home" element={<Layout><Home toggleLogInPopup={toggleLogInPopup} toggleSignUpPopup={toggleSignUpPopup} /></Layout>} />
-        <Route path="/pages/services" element={<Layout><Services /></Layout>} />
-        <Route path="/pages/camera" element={<Layout><Camera /></Layout>} />
-        <Route path="/pages/realtimevideo" element={<Layout><RealTimeVideo /></Layout>} />
+         {/* หน้าเข้าถึงได้เสมอ */}
         <Route path="/pages/aboutus" element={<Layout><AboutUs /></Layout>} />
-        <Route path="/pages/plantinfo" element={<Layout><PlantInfo /></Layout>} />
-        <Route path="/pages/album1" element={<Layout><AlbumT /></Layout>} />
-        <Route path="/pages/Notifications" element={<Layout><Notifications /></Layout>} />
-        <Route path="/pages/Statistics" element={<Layout><Statistics /></Layout>} />
-        <Route path="/pages/album2/:date" element={<Layout><Album1T /></Layout>} />
-        <Route path="/pages/album3/:date/:hour" element={<Layout><Album2T /></Layout>} />
-        <Route path="/pages/main" element={<Layout><Main /></Layout>} />
-        <Route path="/pages/NotificationContext" element={<Layout><NotificationContext /></Layout>} />
-        <Route path="/pages/albums-test" element={<Layout><Album_T/></Layout>} />
-        <Route path="/pages/:cameraName" element={<Layout><CameraPage /></Layout>} />
+        <Route path="/pages/support" element={<Layout><Support /></Layout>} />
+        {/* Layout used for all other pages */}
+        <Route path="/pages/home" element={<ProtectedRoute><Layout><Home toggleLogInPopup={toggleLogInPopup} toggleSignUpPopup={toggleSignUpPopup} /></Layout></ProtectedRoute>} />
+        <Route path="/pages/services" element={<ProtectedRoute><Layout><Services /></Layout></ProtectedRoute>} />
+        <Route path="/pages/camera" element={<ProtectedRoute><Layout><Camera /></Layout></ProtectedRoute>} />
+        <Route path="/pages/realtimevideo" element={<ProtectedRoute><Layout><RealTimeVideo /></Layout></ProtectedRoute>} />
+        <Route path="/pages/plantinfo" element={<ProtectedRoute><Layout><PlantInfo /></Layout></ProtectedRoute>} />
+        <Route path="/pages/album1" element={<ProtectedRoute><Layout><AlbumT /></Layout></ProtectedRoute>} />
+        <Route path="/pages/Notifications" element={<ProtectedRoute><Layout><Notifications /></Layout></ProtectedRoute>} />
+        <Route path="/pages/Statistics" element={<ProtectedRoute><Layout><Statistics /></Layout></ProtectedRoute>} />
+        <Route path="/pages/album2/:date" element={<ProtectedRoute><Layout><Album1T /></Layout></ProtectedRoute>} />
+        <Route path="/pages/album3/:date/:hour" element={<ProtectedRoute><Layout><Album2T /></Layout></ProtectedRoute>} />
+        <Route path="/pages/main" element={<ProtectedRoute><Layout><Main /></Layout></ProtectedRoute>} />
+        <Route path="/pages/AdminDashboard" element={<ProtectedRoute><Layout><AdminDashboard /></Layout></ProtectedRoute>} />
+        <Route path="/pages/overview" element={<ProtectedRoute><Layout><Overview /></Layout></ProtectedRoute>} />
+        <Route path="/pages/ManageUser" element={<ProtectedRoute><Layout><ManageUser /></Layout></ProtectedRoute>} />
+        <Route path="/pages/ManageProblems" element={<ProtectedRoute><Layout><ManageSystemProblems /></Layout></ProtectedRoute>} />
+        <Route path="/pages/NotificationContext" element={<ProtectedRoute><Layout><NotificationContext /></Layout></ProtectedRoute>} />
+        <Route path="/pages/albums-test" element={<ProtectedRoute><Layout><Album_T /></Layout></ProtectedRoute>} />
+        <Route path="/pages/:cameraName" element={<ProtectedRoute><Layout><CameraPage /></Layout></ProtectedRoute>} />
       </Routes>
 
       {/* Show popups if they are open */}
@@ -143,9 +158,16 @@ function AppContent() {
             onAddCamera={handleAddCamera}
           />
         )}
-      {showPopup && newNotification && (
-        <NotificationPopup notification={newNotification} onClose={() => setShowPopup(false)} />
-      )}
+
+        {showPopup && newNotification && (
+          <NotificationPopup 
+            notification={newNotification} 
+            onClose={() => {
+              setShowPopup(false);  // รีเซ็ตสถานะของ showPopup
+              setNewNotification(null);  // รีเซ็ต newNotification ถ้าต้องการ
+            }} 
+          />
+        )}
 
       {/* Footer only for certain routes */}
       {showNavbarAndFooter && (

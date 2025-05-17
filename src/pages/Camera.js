@@ -1,5 +1,3 @@
-// src/pages/Camera.js
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // ใช้ useNavigate แทน Link
 import './css/Camera.css';
@@ -8,37 +6,36 @@ function Camera() {
   const navigate = useNavigate(); // สร้างตัวแปร navigate สำหรับใช้ในการนำทาง
 
   return (
-    <div className="camera-container">
+    <div className="camera-page-container">
       {/* ปุ่มย้อนกลับ */}
       <button className="back-button" onClick={() => navigate('/pages/services')}>
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
-        <span>Camera</span>
       </button>
-      <h2>Camera 1</h2>
+      <h1 className="camera-page-title">Butterhead 1</h1>
 
-      <div className="box-container">
+      <div className="camera-page-box-container">
         {/* กล่อง 1: Video Real Time */}
-        <div className="box" onClick={() => navigate('/pages/realtimevideo')}>
-          <img src="/img/video-icon.png" alt="Video Real Time" className="box-image" />
-          <p className="box-title">Video real time</p>
+        <div className="camera-page-box" onClick={() => navigate('/pages/realtimevideo')}>
+          <img src="/img/video-icon.png" alt="Video Real Time" className="camera-page-box-image" />
+          <p className="camera-page-box-title">Video real time</p>
         </div>
 
         {/* กล่อง 2: Plant Information */}
-        <div className="box" onClick={() => navigate('/pages/plantinfo')}>
-          <img src="/img/plant-info.png" alt="Plant Information" className="box-image" />
-          <p className="box-title">Plant information</p>
+        <div className="camera-page-box" onClick={() => navigate('/pages/plantinfo')}>
+          <img src="/img/plant-info.png" alt="Plant Information" className="camera-page-box-image" />
+          <p className="camera-page-box-title">Plant information</p>
         </div>
 
         {/* กล่อง 3: Statistics */}
-        <div className="box" onClick={() => navigate('/pages/statistics')}>
-          <img src="/img/graph.png" alt="Statistics" className="box-image" />
-          <p className="box-title">Statistics</p>
+        <div className="camera-page-box" onClick={() => navigate('/pages/statistics')}>
+          <img src="/img/graph.png" alt="Statistics" className="camera-page-box-image" />
+          <p className="camera-page-box-title">Statistics</p>
         </div>
 
         {/* กล่อง Album */}
-        <div className="box" onClick={() => navigate('/pages/albums-test')}>
-          <img src="/img/album.png" alt="Album" className="box-image" />
-          <p className="box-title">Albums</p>
+        <div className="camera-page-box" onClick={() => navigate('/pages/albums-test')}>
+          <img src="/img/album.png" alt="Album" className="camera-page-box-image" />
+          <p className="camera-page-box-title">Albums</p>
         </div>
       </div>
     </div>

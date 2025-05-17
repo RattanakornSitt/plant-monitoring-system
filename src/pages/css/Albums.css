@@ -12,19 +12,6 @@
   position: relative;
   z-index: 1;
 }  
-.back-button {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  color: #007bff;
-  text-decoration: none;
-}
-
-.back-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
 
 h2.albums-title {
   font-size: 28px;

@@ -39,7 +39,6 @@ function Album1T() {
     <div className="albums-container">
       <Link to="/pages/albums-test" className="back-button">
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
-        <span>Back</span>
       </Link>
       <h2 className="albums-title">Butterhead Album</h2>
       <p className="selected-date">{date}</p>

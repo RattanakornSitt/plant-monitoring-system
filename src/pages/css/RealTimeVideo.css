@@ -1,17 +1,19 @@
 /* Real-time Video Page Styles */
 .real-time-video-container {
     font-family: Arial, sans-serif;
-    padding: 40px 20px;
+    padding: 20px 20px;
     max-width: 1200px;
-    margin: 0 auto;
     z-index: 1000;
 }
 
 /* Real-time Video Content Section */
 .real-time-video-content {
     text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* จัดตรงกลางแนวตั้ง */
+    justify-content: center; /* จัดตรงกลางแนวนอน */
 }
 
 .real-time-video-content h1 {
@@ -20,59 +22,79 @@
     margin-bottom: 20px;
 }
 
-/* White Container for Video */
-.video-box {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-video {
-    width: 100%;
-    max-width: 1200px;
-    height: 500px; /* Increased height for a bigger video display */
-    border-radius: 15px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow around video */
-    
-}
-
 /* ปรับสไตล์ของ .video-box */
 .video-box {
     background-color: #ffffff;
     padding: 40px;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    margin: 0 auto;
-    position: relative; /* เพิ่ม position relative เพื่อให้ปุ่มขยายอยู่ภายใน */
-    z-index: 1000;
+    width: 80vw;         /* ลดจาก 90vw เป็น 80vw เพื่อให้สมดุล */
+    max-width: 1000px;   /* จำกัดขนาดสูงสุด */
+    position: center;
+    z-index: 1;
 }
 
 /* ปรับตำแหน่งของปุ่ม Fullscreen ให้อยู่ด้านล่างกลางของ video box */
 .fullscreen-button {
     position: absolute;
-    bottom: 5px; /* ระยะห่างจากด้านล่าง */
+    bottom: 1px; /* ระยะห่างจากด้านล่าง */
     left: 50%;
     transform: translateX(-50%); /* กะระยะให้ปุ่มอยู่กลาง */
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    background-color: rgba(1, 123, 145, 0.7);
+    color: rgb(255, 255, 255);
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    z-index: 10;
+    z-index: 1;
 }
 
 .fullscreen-button:hover {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 27, 29, 0.9);
 }
 
-/* ปรับขนาดเมื่ออยู่ในโหมดเต็มจอ */
-video:fullscreen {
+/* Fullscreen Mode */
+.video-iframe:fullscreen {
     width: 100%;
     height: 100%;
+}
+
+.video-iframe {
+    width: 100%;           /* เต็มความกว้างของ container */
+    max-width: 1000px;     /* ไม่เกิน 1200px เพื่อไม่ให้ใหญ่เกินไป */
+    aspect-ratio: 16 / 9; /* ใช้ aspect ratio เพื่อให้ความสูงปรับตามอัตโนมัติ */
+    border-radius: 12px;   /* มุมโค้งเล็กน้อย */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงาเบาๆ เพิ่มความนุ่มนวล */
+    border: none;          /* ไม่มีขอบ */
+  }
+
+  /* Responsive Design */
+@media (max-width: 1024px) {
+    .video-box {
+        width: 95vw;
+        padding: 30px;
+    }
+    
+    .video-iframe {
+        height: auto;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-box {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .video-iframe {
+        width: 100%;
+        height: auto;
+    }
+    
+    .fullscreen-button {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
 }

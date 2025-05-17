@@ -1,13 +1,8 @@
 import React, { useContext } from 'react';
 import { NotificationContext } from './NotificationContext';
-import NotificationPopup from './NotificationPopup'; // นำเข้า Component Popup
 
 function NotificationList() {
   const { notifications, showPopup, setShowPopup, newNotification } = useContext(NotificationContext);
-
-  const handleClosePopup = () => {
-    setShowPopup(false); // ปิด popup เมื่อผู้ใช้คลิกปุ่มปิด
-  };
 
   return (
     <div className="notifications-page">
@@ -25,11 +20,6 @@ function NotificationList() {
           </div>
         ))}
       </section>
-
-      {/* แสดง Popup เมื่อ showPopup เป็น true */}
-      {showPopup && newNotification && (
-        <NotificationPopup notification={newNotification} onClose={handleClosePopup} />
-      )}
     </div>
   );
 }

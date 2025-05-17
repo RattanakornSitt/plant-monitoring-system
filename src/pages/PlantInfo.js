@@ -6,7 +6,6 @@ function PlantInfo() {
     <div className="plant-information-container">
       <button className="back-button" onClick={() => window.history.back()}>
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
-        <span>Back</span>
       </button>
 
       {/* Plant Information Section */}

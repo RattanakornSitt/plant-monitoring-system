@@ -1,24 +1,27 @@
 /* Container for Statistics page */
 .statistics-container {
-  padding: 40px;
-  max-width: 1400px; /* เพิ่มขนาดให้กว้างขึ้น */
+  padding: 10px;
+  max-width: 1600px; /* เพิ่มขนาดให้กว้างขึ้น */
   margin: 0 auto;
+  border-radius: 16px;
+  z-index: 1;
 }
 
 /* Main Content Section */
 .statistics-content {
   text-align: center;
-  z-index: 100;
+  z-index: 1;
   background-color: rgb(255, 255, 255);
-  max-width: 1800%; /* เพิ่มขนาดให้กว้างขึ้น */
+  max-width: 100%; /* เพิ่มขนาดให้กว้างขึ้น */
   margin: 0 auto;
   padding: 30px 50px; /* เพิ่ม padding เพื่อให้เนื้อหามีพื้นที่มากขึ้น */
+  border-radius: 16px;
 }
 
 /* Heading */
 .statistics-header {
   font-size: 3.5rem; /* เพิ่มขนาดตัวอักษร */
-  color: #333;
+  color: #000000;
   margin-top: 30px;
 }
 
@@ -26,15 +29,17 @@
 .charts-container {
   display: flex;
   justify-content: space-between;
-  max-width: 1000px; /* เพิ่มขนาดให้กว้างขึ้น */
+  max-width: 100%; /* เพิ่มขนาดให้กว้างขึ้น */
   margin-top: 50px;
-  z-index: 1000;
+  z-index: 1;
+  border-radius: 16px;
 }
 
 /* Graph Section */
 .chart-section {
   width: 1000%; /* Ensure each graph takes up 48% of the container width */
   margin-bottom: 50px;
+  flex: 1;
 }
 
 /* เพิ่มการปรับขนาดของกราฟ */
@@ -81,11 +86,12 @@ canvas {
 }
 
 .summary-table-container {
-  margin-top: 40px; /* เพิ่มช่องว่างระหว่างกราฟและตาราง */
+  margin-top: 0px; /* เพิ่มช่องว่างระหว่างกราฟและตาราง */
   padding: 15px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
 }
 
 .summary-table-content {
@@ -111,4 +117,37 @@ canvas {
 
 .summary-table-content tr:hover {
   background-color: #e0e0e0;
+}
+
+
+.graph-selector {
+  display: flex;
+  gap: 10px;
+  justify-content: center; /* จัดปุ่มให้อยู่ตรงกลาง */
+  margin: 20px 0;
+}
+
+.graph-selector button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.graph-selector button.active {
+  background-color: #2bbba8;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.chart-and-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+  gap: 40px;
 }

@@ -2,8 +2,10 @@
 .about-us-container {
     font-family: Arial, sans-serif;
     /*padding: 40px 20px;*/
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 40px 30px; /* เพิ่ม padding */
+    z-index: 1;
 }
 
 /* About Us Information Section */
@@ -14,7 +16,7 @@
 
 .about-us-info h1 {
     font-size: 2.5rem;
-    color: #1b858d;
+    color: #000000;
     margin-bottom: 20px;
 }
 
@@ -34,10 +36,12 @@
 
 /* Box Style for Product, Plant Monitoring, and Key Features */
 .box {
+    flex: 1;
+    min-width: 300px; /* กันไม่ให้กล่องเล็กเกิน */
     background-color: #f4f4f4;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .box h2 {
@@ -62,9 +66,15 @@
 /* Side-by-Side Layout for Plant Monitoring and Key Features */
 .side-by-side-boxes {
     display: flex;
-    gap: 20px;
+    gap: 40px;
     justify-content: space-between;
+    flex-wrap: wrap; /* เผื่อจอเล็กจะได้ขึ้นบรรทัดใหม่ */
 }
+
+.plant-monitoring-system p {
+    margin-bottom: 10px; /* ลดระยะห่างระหว่างข้อความ */
+    line-height: 1.5;   /* ลดความสูงของแต่ละบรรทัด */
+  }  
 
 .plant-monitoring-system,
 .key-features {

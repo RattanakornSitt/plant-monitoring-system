@@ -12,55 +12,62 @@
     color: rgb(0, 0, 0);
     position: relative;
     padding-bottom: 50px; /* เพิ่มพื้นที่ด้านล่างเพื่อไม่ให้เนื้อหาติดกับ footer */
-
+    width: 100%; /* ทำให้ความกว้างเต็มหน้าจอ */
+    z-index: 1;
   }
   .dashboard-container h1 {
     color: #000000;
   }
   
   .services-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap; /* ยังคง wrap ไว้ แต่จะพอดีมากขึ้น */
+    gap: 15px;       /* ลดช่องว่าง */
     margin-top: 20px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 3000px; /* <<< ลด max-width ลงให้กล่องพอดี */
+    justify-content: center;
   }
   
   .service-box {
-    display: flex;               /* ใช้ flexbox เพื่อจัดตำแหน่ง */
-    flex-direction: column;      /* ตั้งค่าการจัดแนวในแนวตั้ง */
-    justify-content: center;     /* จัดกลางในแนวตั้ง */
-    align-items: center;         /* จัดกลางในแนวนอน */
-    border: 1px solid #ddd;      /* ขอบสีเทาอ่อน */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 220px;       /* <<< ลดขนาด width ลง */
+    height: 320px;      /* <<< ลดขนาด height ด้วย */
+    border: 1px solid #ddd;
     padding: 20px;
-    text-align: center;          /* ข้อความใน service box จะจัดตรงกลาง */
-    cursor: pointer;            /* เปลี่ยน cursor เมื่อ hover */
-    border-radius: 8px;          /* ขอบกลม */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* เงาสีเทา */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* การเปลี่ยนแปลงเมื่อ hover */
-    background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งใส */
-    height: 100%;               /* ใช้ 100% ความสูงของกล่อง */
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .service-box img:hover {
+  .service-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
   
   .service-box img {
-    max-width: 250px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     margin-bottom: 10px;
+    border-radius: 5px;
   }
   
+  /* ปรับขนาดและตัวหนังสือ */
   .service-box h2 {
-    font-size: 20px;
+    font-size: 18px;
     margin: 10px 0;
   }
   
   .service-box p {
-    color: #363232;
-    font-size: 18px;
+    font-size: 16px;
+    color: #555;
   }
 
   .push-notification-container {
@@ -85,3 +92,15 @@
     z-index: 10; /* ให้แน่ใจว่าปุ่มมีค่ามากกว่าค่าของปุ่มอื่น ๆ */
   }
     
+ /* Responsive */
+@media (max-width: 768px) {
+  .services-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-box {
+    width: 90%;
+    height: auto;
+  }
+}

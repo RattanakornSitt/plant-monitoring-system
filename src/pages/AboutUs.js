@@ -18,31 +18,30 @@ function AboutUs() {
 
       {/* Product and System Section Container */}
       <div className="product-system-container">
-        {/* About Our Product Section in a Box */}
-        <section className="plant-monitoring-system box">
+        {/* 3 กล่องเรียงกันแนวนอน */}
+        <div className="side-by-side-boxes">
+          {/* Plant Monitoring */}
+          <section className="plant-monitoring-system box">
             <h2>Plant Monitoring System</h2>
-            <p>แจ้งเตือนปัญหาเกี่ยวกับโรคและศัตรูพืชจำพวกหนอนและให้คำแนะนำการดูแล เพื่อการเกษตรที่ชาญฉลาด</p>
+            <p>ระบบติดตามการเจริญเติบโตของพืชผ่านกล้องและตรวจสอบสภาพพืช แจ้งเตือนปัญหาเกี่ยวกับโรคพืชและให้คำแนะนำการดูแล เพื่อการเกษตรที่ชาญฉลาด</p>
           </section>
 
-        {/* Plant Monitoring and Key Features in Boxes on the Same Line */}
-        <div className="side-by-side-boxes">
-          <section className="about-product">
-          <div className="box">
+          {/* About Product */}
+          <section className="about-product box">
             <h2>About Our Product</h2>
             <div className="product-image">
               <img src="/img/product.jpg" alt="Our Product" />
             </div>
-          </div>
-        </section>
+          </section>
 
+          {/* Key Features */}
           <section className="key-features box">
             <h2>Key Features</h2>
             <ul>
               <li>แจ้งเตือนเมื่อพบว่าพืชเป็นโรค</li>
-              <li>แจ้งเตือนเมื่อพบหนอน</li>
               <li>ติดตามพืชผ่านวีดีโอเรียลไทม์</li>
               <li>เก็บภาพพืชทุกวันเวลา 9:00 และ 15:00</li>
-              <li>แสดงสถิติการเกิดโรคและหนอน</li>
+              <li>แสดงสถิติการเกิดโรคของพืช</li>
             </ul>
           </section>
         </div>
@@ -53,7 +52,7 @@ function AboutUs() {
         <div className="contact-info">
         <h1>Contact Us</h1>
           <div className="contact-item">
-          <img src="/img/phone.png" alt="Phone" className="contact-icon" />
+          <img src="/img/phone-1.png" alt="Phone" className="contact-icon" />
             <span>02-12345678</span>
           </div>
           <div className="contact-item">

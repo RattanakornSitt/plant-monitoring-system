@@ -1,0 +1,125 @@
+.manage-problems-container {
+    width: 80%;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background-color: #f0fbff;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0, 128, 128, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 1;
+  }  
+  
+  .manage-problems-container h1 {
+    text-align: center;
+    color: #007f91;
+    margin-bottom: 30px;
+  }
+  
+  .search-controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .search-controls label {
+    font-weight: bold;
+    color: #006d77;
+  }
+  
+  .search-controls input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #a8dadc;
+    border-radius: 8px;
+    background-color: #e0f7fa;
+    color: #006d77;
+  }
+  
+  .search-controls button {
+    background-color: #00b4d8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .search-controls button:hover {
+    background-color: #0077b6;
+  }
+  
+  .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .report-card {
+    background-color: #ffffff;
+    border-left: 6px solid #00b4d8;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(0, 181, 173, 0.08);
+    transition: transform 0.2s ease;
+    text-align: left; /* <-- เพิ่มบรรทัดนี้ จัดข้อความชิดซ้าย */
+  }
+  
+  .report-card:hover {
+    transform: scale(1.01);
+  }
+  
+  .report-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #0096c7;
+  }
+  
+  .report-card p {
+    margin: 6px 0;
+    color: #333;
+  }
+  
+  .report-card a {
+    color: #00b4d8;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .mark-button {
+    background-color: #e4654e;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .mark-button:hover {
+    background-color: #ec7526;
+  }
+  
+  .resolved-label {
+    background-color: #90e0ef;
+    color: #007f91;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 12px;
+    display: inline-block;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* ชิดขวา */
+    margin-top: 12px;
+  }
+  

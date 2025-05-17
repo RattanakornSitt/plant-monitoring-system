@@ -12,7 +12,10 @@
   width: 100%; /* กำหนดให้การ์ดเต็มความกว้าง */
   max-width: 1000px; /* จำกัดขนาดสูงสุดของการ์ด */
   box-sizing: border-box; /* รวม padding และ border ในขนาดของการ์ด */
-  z-index: 100;
+  z-index: 1;
+}
+.notifications-page {
+  z-index: 1;
 }
 
 .new-tag {
@@ -32,13 +35,14 @@
   align-items: center;
   width: 100%; /* Ensures the header spans the width of the card */
   margin-bottom: 10px;
+  z-index: 1;
 }
 
-.notification-header h2 {
+.notification-header h1 {
   font-size: 18px;
   font-weight: bold;
   margin: 0;
-  color: #333;
+  color: #000000;
 }
 
 .notification-header .notification-date {

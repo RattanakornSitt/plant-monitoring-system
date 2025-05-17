@@ -69,7 +69,6 @@ function Album_T() {
     <div className="albumsT-container">
       <Link to="/pages/camera" className="back-button">
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
-        <span>Albums</span>
       </Link>
       <h2 className="albumsT-subtitle">Butterhead</h2>
 

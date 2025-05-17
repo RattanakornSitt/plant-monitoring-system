@@ -45,7 +45,7 @@ function Main() {
     fetchUserData();
   }, [navigate, setUser]);
 
-  const handleLogout = () => {
+  /*const handleLogout = () => {
     auth
       .signOut()
       .then(() => {
@@ -57,7 +57,7 @@ function Main() {
       .catch((error) => {
         console.error("Error during logout:", error);
       });
-  };
+  };*/
 
   if (isLoading) return <p>Loading...</p>; // แสดง loading state
 
@@ -89,9 +89,20 @@ function Main() {
       image: "/img/faq.png",
       title: "Support",
       description: "Get help and support from our team",
-      path: "#Support",
+      path: "/pages/Support",
     },
   ];
+
+  // ถ้าเป็น admin, เพิ่มกล่องพิเศษ
+  if (user.username === "Admin") {
+    serviceBoxes.push({
+      key: "admin",
+      image: "/img/admin-dash.png", // เตรียมรูป admin ด้วยนะคะ หรือเปลี่ยนเป็นรูปอื่นได้
+      title: "Administrator",
+      description: "Manage users, manage system problems, and more",
+      path: "/pages/AdminDashboard", // อย่าลืมสร้างเส้นทางนี้ใน router ของคุณ
+    });
+  }
 
   return (
 

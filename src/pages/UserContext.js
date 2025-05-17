@@ -11,32 +11,27 @@ export const UserProvider = ({ children }) => {
   const navigate = useNavigate(); // ใช้ useNavigate สำหรับการนำทาง
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const currentUser = auth.currentUser;
-
-        if (!currentUser) {
-          const storedUser = JSON.parse(localStorage.getItem("user"));
-          if (storedUser) {
-            setUser(storedUser);
-          }
-        } else {
-          const userRef = doc(getFirestore(), "USER", currentUser.uid);
-          const userDoc = await getDoc(userRef);
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setUser(userData);
-            localStorage.setItem("user", JSON.stringify(userData));
-          }
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      if (currentUser) {
+        const userRef = doc(getFirestore(), "USER", currentUser.uid);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUser(userData);
+          localStorage.setItem("user", JSON.stringify(userData));
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoading(false);
+      } else {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (storedUser) {
+          setUser(storedUser);
+        } else {
+          setUser(null);
+        }
       }
-    };
+      setLoading(false);
+    });
 
-    fetchUserData();
+    return () => unsubscribe();
   }, []);
 
   const handleLogOut = () => {

@@ -160,7 +160,7 @@ function SignUp({ togglePopup, toggleToLogIn }) {
 
         <div className="popup-links">
           <p>
-            Already have an account? <a href="#" onClick={toggleToLogIn}>Login Now</a>
+            Already have an account? <a href="/pages/login" onClick={toggleToLogIn}>Login Now</a>
           </p>
         </div>
       </>

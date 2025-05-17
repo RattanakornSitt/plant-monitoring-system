@@ -1,0 +1,233 @@
+:root {
+    --primary-color: #00bfa6; /* teal */
+    --secondary-color: #00aaff; /* sky blue */
+    --bg-color: #f5faff; /* light background */
+    --card-color: #ffffff;
+    --text-color: #333;
+    --border-radius: 10px;
+  }
+  
+  .manage-user-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 16px;
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-color);
+    z-index: 1;
+  }
+  
+  .manage-user-container h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+  }
+  
+  .search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .search-bar select,
+  .search-bar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    outline: none;
+    min-width: 150px;
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .search-bar button:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 191, 166, 0.3);
+  }
+  
+  .add-user-form {
+    background-color: var(--card-color);
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin: 0 auto 30px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .add-user-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    outline: none;
+  }
+  
+  .add-user-form button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .add-user-form button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 170, 255, 0.3);
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: normal;
+  }
+  
+  .user-table tr:hover {
+    background-color: #f1fdfc;
+  }
+  
+  .camera-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0;
+    padding: 6px 10px;
+    background-color: #e6f7f7;
+    border-radius: 6px;
+  }
+  
+  .camera-entry button {
+    background-color: crimson;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .camera-entry button:hover {
+    background-color: #e60023;
+  }
+  
+  .user-table button {
+    margin: 0 4px;
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    transition: background-color 0.2s ease;
+  }
+  
+  .user-table button:hover {
+    background-color: #d4d4d4;
+  }
+  
+  .camera-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    background-color: #f9f9f9;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  
+  .add-camera-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+  }
+  
+  .add-camera-form input {
+    margin: 4px 0;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-camera-form button {
+    margin: 4px 0;
+    padding: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .edit-user-form {
+    background-color: var(--card-color);
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .edit-user-form h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .edit-user-form input,
+  .edit-user-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .edit-user-form button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-user-form button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 170, 255, 0.3);
+  }
+  
