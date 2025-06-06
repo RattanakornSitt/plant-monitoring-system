@@ -187,3 +187,77 @@
   font-size: 16px;
   margin: 0;
 }
+
+/* ปรับ popup บนหน้าจอเล็ก */
+@media (max-width: 500px) {
+  .popup-s-content {
+    width: 90%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .popup-s-content h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .popup-s-content input[type="text"],
+  .popup-s-content input[type="email"],
+  .popup-s-content input[type="password"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .popup-signup-btn,
+  .google-login-btn,
+  .reset-password-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .popup-links {
+    font-size: 13px;
+  }
+
+  .happy-popup {
+    width: 95%;
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .happy-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .happy-title {
+    font-size: 20px;
+  }
+
+  .happy-message {
+    font-size: 14px;
+  }
+}
+
+/* สำหรับหน้าจอขนาดกลาง เช่นแท็บเล็ต */
+@media (max-width: 768px) {
+  .popup-s-content {
+    width: 80%;
+    padding: 25px;
+  }
+
+  .popup-s-content h2 {
+    font-size: 22px;
+  }
+
+  .popup-signup-btn,
+  .google-login-btn,
+  .reset-password-form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .happy-popup {
+    width: 85%;
+  }
+}

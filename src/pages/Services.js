@@ -19,6 +19,7 @@ function Services() {
 
   // ใช้ onSnapshot เพื่อฟังการเปลี่ยนแปลงแบบเรียลไทม์
   useEffect(() => {
+    console.log("Current username:", username); // แสดง username ที่ login
     const cameraRef = collection(db, "CAMERA");
     const q = query(cameraRef, where("username", "==", username));
 
@@ -28,6 +29,7 @@ function Services() {
       querySnapshot.forEach((docSnap) => {
         cameras.push({ ...docSnap.data(), id: docSnap.id });
       });
+      console.log("Fetched cameras:", cameras); // ดูว่าได้ข้อมูลกล้องของใครบ้าง
       setCameraList(cameras); // อัพเดต cameraList แบบ real-time
     });
 
@@ -88,38 +90,17 @@ function Services() {
       <p className="welcome-message">Hello, welcome to the services page!</p>
 
       <div className="card-container">
-        {/* การ์ดคงที่ Butterhead */}
-        <div className="card">
-          <img src="/img/plant-icon.png" alt="Camera 1" className="card-image" />
-          <p className="card-title">Butterhead</p>
-          <p className="card-id">ID: 100</p>
-          <p className="card-location">Location: Greenhouse 1</p>
-          <p className="card-description">Description: Butterhead</p>
-          <button 
-            className="details-button" 
-            onClick={() => navigate("/pages/camera")}
-          >
-            More details
-          </button>
-          <button className="clear-camera-btn" disabled>&times;</button>
-          <button 
-              className="edit-camera-btn" 
-            >
-              ✏️
-            </button>
-        </div>
-
         {/* การ์ดจาก Firebase แบบ real-time */}
         {cameraList.map((camera) => (
           <div className="card" key={camera.id}>
             <img src="/img/plant-icon.png" alt={camera.cameraName} className="card-image" />
             <p className="card-title">{camera.cameraName}</p>
-            <p className="card-id">ID: {camera.cameraID}</p>
+            <p className="card-id">ID: {camera.product}</p>
             <p className="card-location">Location: {camera.location || "-"}</p>
             <p className="card-description">Description: {camera.description || "-"}</p>
             <button 
               className="details-button" 
-              onClick={() => navigate(`/pages/${camera.cameraName}`)}
+              onClick={() => navigate(`/pages/camera?product=${camera.product}&cameraName=${encodeURIComponent(camera.cameraName)}`)}
             >
               More details
             </button>

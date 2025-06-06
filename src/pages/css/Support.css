@@ -85,3 +85,99 @@
   float: right;
   font-size: 24px;
 }
+
+/* สำหรับหน้าจอมือถือ (ความกว้าง <= 500px) */
+@media (max-width: 500px) {
+  .support-container {
+    padding: 20px 15px;
+    width: 90%;
+    font-size: 16px;
+  }
+
+  .support-title h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .report-problem .report-link {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .faq h2, .guides h2 {
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  .faq-item, .guide-item {
+    padding: 12px 15px;
+  }
+
+  .faq-question, .guide-question {
+    font-size: 18px;
+  }
+
+  .faq-answer, .guide-answer {
+    font-size: 15px;
+    padding-left: 12px;
+  }
+
+  .report-popup-content {
+    width: 90%;
+    padding: 20px;
+    font-size: 16px;
+  }
+
+  .close {
+    font-size: 20px;
+  }
+}
+
+/* สำหรับหน้าจอแท็บเล็ต (ความกว้าง <= 768px) */
+@media (max-width: 768px) {
+  .support-container {
+    padding: 25px 20px;
+    width: 95%;
+    font-size: 17px;
+  }
+
+  .support-title h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .report-problem .report-link {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .faq h2, .guides h2 {
+    font-size: 24px;
+    margin-top: 25px;
+    margin-bottom: 18px;
+  }
+
+  .faq-item, .guide-item {
+    padding: 14px 18px;
+  }
+
+  .faq-question, .guide-question {
+    font-size: 19px;
+  }
+
+  .faq-answer, .guide-answer {
+    font-size: 16px;
+    padding-left: 14px;
+  }
+
+  .report-popup-content {
+    width: 450px;
+    padding: 25px;
+    font-size: 17px;
+  }
+
+  .close {
+    font-size: 22px;
+  }
+}

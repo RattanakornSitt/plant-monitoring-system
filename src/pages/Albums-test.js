@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // เพิ่ม useNavigate
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // เพิ่ม useNavigate
 import './css/Albums_T.css';
 import { db } from './firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
@@ -11,6 +11,12 @@ function Album_T() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // ปีปัจจุบัน
   const [datesWithImages, setDatesWithImages] = useState([]); // เก็บวันที่ที่มีรูป
   const navigate = useNavigate(); // ใช้สำหรับการนำทาง
+  const location = useLocation();
+
+   // ✅ ดึง query string จาก URL
+  const queryParams = new URLSearchParams(location.search);
+  const cameraName = queryParams.get("cameraName");
+  const product = queryParams.get("product"); // จะเป็น string เช่น "1"
 
   useEffect(() => {
     const fetchPlantImages = async () => {
@@ -18,22 +24,25 @@ function Album_T() {
         const querySnapshot = await getDocs(collection(db, 'PLANT_IMAGES'));
         const plantImagesData = querySnapshot.docs.map(doc => doc.data());
 
-        const uniqueDates = [...new Set(plantImagesData.map(album => album.date))]; // วันไหนมีรูป
-        setDatesWithImages(uniqueDates);
+        // ✅ กรองเฉพาะรูปที่ตรงกับ product
+        const filteredData = plantImagesData.filter(album => album.product?.toString() === product);
 
-        const groupedByDate = uniqueDates.map(date => ({
-          date,
-          images: plantImagesData.filter(album => album.date === date),
-        }));
+        const uniqueDates = [...new Set(filteredData.map(album => album.date))];
+          setDatesWithImages(uniqueDates);
 
-        setAlbums(groupedByDate);
-      } catch (error) {
-        console.error('Error getting documents: ', error);
-      }
-    };
+          const groupedByDate = uniqueDates.map(date => ({
+            date,
+            images: filteredData.filter(album => album.date === date),
+          }));
 
-    fetchPlantImages();
-  }, []);
+          setAlbums(groupedByDate);
+        } catch (error) {
+          console.error('Error getting documents: ', error);
+        }
+      };
+
+      if (product) fetchPlantImages();
+    }, [product]);
 
   const getDaysInMonth = (month, year) => {
     const date = new Date(year, month, 1);
@@ -46,9 +55,10 @@ function Album_T() {
   };
 
   const handleDateClick = (date) => {
-    setSelectedDate(date); // Set the selected date
-    navigate(`/pages/Album2/${date}`); // Navigate to Album2 with the selected date
-  };
+      setSelectedDate(date);
+      // ✅ ส่ง cameraName และ product ไปยังหน้า Album2 ด้วย query string
+      navigate(`/pages/Album2/${date}?cameraName=${cameraName}&product=${product}`);
+    };
 
   const handleMonthChange = (delta) => {
     const newMonth = currentMonth + delta;
@@ -67,10 +77,10 @@ function Album_T() {
 
   return (
     <div className="albumsT-container">
-      <Link to="/pages/camera" className="back-button">
+      <Link to={`/pages/camera?product=${product}&cameraName=${encodeURIComponent(cameraName)}`} className="back-button">
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
       </Link>
-      <h2 className="albumsT-subtitle">Butterhead</h2>
+      <h2 className="albumsT-subtitle">{cameraName || 'Unknown Camera'}</h2>
 
       <div className="calendar-header">
         <button onClick={() => handleMonthChange(-1)}>&lt;</button>

@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import './css/Album_2.css';
 import { db } from './firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 function Album3() {
   const { date, hour } = useParams();
+  const location = useLocation();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCamera, setSelectedCamera] = useState(1);
+   const [expandedImage, setExpandedImage] = useState(null); // <-- state รูปที่ขยาย
+
+  // ดึง query string
+  const queryParams = new URLSearchParams(location.search);
+  const cameraName = queryParams.get('cameraName') || 'Unknown Camera';
+ // ex: "Camera 1" หรือ "0" (ขึ้นอยู่กับที่บันทึกใน Firestore)
+  const product = queryParams.get('product');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -37,14 +45,12 @@ function Album3() {
 
         console.log("📄 Number of documents fetched:", querySnapshot.size);
 
-        const fetchedImages = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          console.log("📄 Document Data:", data);
-          return data["image-url"];
-        });
+        const fetchedImages = querySnapshot.docs
+          .map(doc => doc.data())
+          .sort((a, b) => a.time.localeCompare(b.time))  // 🔁 เรียงจากเวลาน้อยไปมาก
+          .map(data => data["image-url"]);               // 🔁 ดึงเฉพาะ URL
 
         console.log("🖼️ Image URLs fetched:", fetchedImages);
-
         setImages(fetchedImages);
       } catch (error) {
         console.error('❌ Error fetching images:', error);
@@ -56,14 +62,17 @@ function Album3() {
     fetchImages();
   }, [date, hour, selectedCamera]);
 
+  // ฟังก์ชันปิดรูปขยาย
+  const closeExpandedImage = () => setExpandedImage(null);
+
   return (
     <div className="album2-container">
-        <Link to={`/pages/album2/${date}`} className="back-button">
-          <img src="/img/back-icon.png" alt="Back" className="back-icon" />
-          <span>Time {hour}:00</span>
-        </Link>
+      <Link to={`/pages/album2/${date}?cameraName=${cameraName}&product=${product}`} className="back-button">
+        <img src="/img/back-icon.png" alt="Back" className="back-icon" />
+        <span>Time {hour}:00</span>
+      </Link>
 
-      <h2 className="album2-subtitle">Butterhead</h2>
+      <h2 className="album2-subtitle">{cameraName}</h2>
 
       <div className="content-container">
         <div className="camera-buttons">
@@ -84,12 +93,18 @@ function Album3() {
         {loading ? (
           <p className="loading-message">Loading images...</p>
         ) : (
-          <div className="image-container">
+          <div className="image-container-3">
             {images.length > 0 ? (
-              <div className="image-grid">
+              <div className="image-grid-3">
                 {images.map((imageUrl, index) => (
-                  <div key={index} className="image-card">
-                    <img src={imageUrl} alt={`Image ${index}`} className="album2-image" />
+                  <div key={index} className="image-card-3">
+                     <img
+                      src={imageUrl}
+                      alt={`Image ${index}`}
+                      className="album2-image"
+                      onClick={() => setExpandedImage(imageUrl)} // เมื่อกดรูป
+                      style={{ cursor: 'pointer' }}
+                    />
                   </div>
                 ))}
               </div>
@@ -99,6 +114,17 @@ function Album3() {
           </div>
         )}
       </div>
+       {/* Overlay แสดงรูปขยาย */}
+      {expandedImage && (
+        <div className="overlay-for-images" onClick={closeExpandedImage}>
+          <img
+            src={expandedImage}
+            alt="Expanded"
+            className="expanded-image"
+            onClick={e => e.stopPropagation()} // ป้องกัน event bubble เมื่อกดรูปใน overlay
+          />
+        </div>
+      )}
     </div>
   );
 }

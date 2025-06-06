@@ -1,41 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../pages/firebaseConfig";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import "./AddCameraPopup.css";
 
 function AddCameraPopup({ isOpen, onClose, onAddCamera, username }) {
-  const [cameraID, setCameraID] = useState("");
+  const [product, setCameraID] = useState("");
   const [cameraName, setCameraName] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [cameraIDExists, setCameraIDExists] = useState(null);
+  const [cameraIDRegistered, setCameraIDRegistered] = useState(null);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (cameraID !== "") {
+      if (product !== "") {
         checkCameraID();
       } else {
         setCameraIDExists(null);
+        setCameraIDRegistered(null);
       }
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [cameraID]);
+  }, [product]);
 
   const checkCameraID = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "CAMERA_DATA"));
-      let exists = false;
-      const inputID = Number(cameraID);
+      const inputID = Number(product);
+      
+      // ตรวจสอบว่า ID มีอยู่ใน CAMERA_DATA หรือไม่
+      const cameraDataSnapshot = await getDocs(collection(db, "CAMERA_DATA"));
+      let existsInData = false;
 
-      querySnapshot.forEach((doc) => {
+      cameraDataSnapshot.forEach((doc) => {
         const data = doc.data();
         if (Number(data.ID) === inputID) {
-          exists = true;
+          existsInData = true;
         }
       });
 
-      setCameraIDExists(exists);
+      setCameraIDExists(existsInData);
+
+      // ตรวจสอบว่า ID ถูกลงทะเบียนใน CAMERA แล้วหรือไม่
+      if (existsInData) {
+        const cameraSnapshot = await getDocs(
+          query(collection(db, "CAMERA"), where("product", "==", inputID))
+        );
+        
+        const isRegistered = !cameraSnapshot.empty;
+        setCameraIDRegistered(isRegistered);
+      } else {
+        setCameraIDRegistered(null);
+      }
+
     } catch (error) {
       console.error("Error checking camera ID: ", error);
     }
@@ -43,26 +60,32 @@ function AddCameraPopup({ isOpen, onClose, onAddCamera, username }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!cameraIDExists) {
       alert("Camera ID ไม่ถูกต้องหรือไม่มีในระบบ กรุณาตรวจสอบอีกครั้ง");
       return;
     }
 
+    if (cameraIDRegistered) {
+      alert("Camera ID นี้ถูกลงทะเบียนแล้ว กรุณาใช้ ID อื่น");
+      return;
+    }
+
     try {
       await addDoc(collection(db, "CAMERA"), {
-        cameraID: Number(cameraID),
+        product: Number(product),
         cameraName,
         location,
         description,
-        username, // ✅ เพิ่ม username ลงใน Firebase
+        username,
       });
 
       const newCamera = {
-        cameraID: Number(cameraID),
+        product: Number(product),
         cameraName,
         location,
         description,
-        username, // ✅ เพิ่ม username ให้ state ด้วย (ถ้าใช้ต่อ)
+        username,
       };
       onAddCamera(newCamera);
       onClose();
@@ -70,6 +93,9 @@ function AddCameraPopup({ isOpen, onClose, onAddCamera, username }) {
       console.error("Error adding camera: ", error);
     }
   };
+
+  // เงื่อนไขสำหรับปุ่ม Submit
+  const isSubmitDisabled = !cameraIDExists || cameraIDRegistered;
 
   if (!isOpen) return null;
 
@@ -83,18 +109,27 @@ function AddCameraPopup({ isOpen, onClose, onAddCamera, username }) {
             <div className="input-wrapper">
               <input 
                 type="text" 
-                value={cameraID} 
+                value={product} 
                 onChange={(e) => setCameraID(e.target.value)} 
                 placeholder="Enter device ID (e.g., 001)" 
                 required 
-                className={cameraIDExists === false ? "input-error" : ""}
+                className={
+                  cameraIDExists === false || cameraIDRegistered === true 
+                    ? "input-error" 
+                    : ""
+                }
               />
-              {cameraIDExists === true && (
+              {cameraIDExists === true && cameraIDRegistered === false && (
                 <span className="checkmark">&#10004;</span>
               )}
             </div>
+            
             {cameraIDExists === false && (
               <span className="error-text">Device ID ไม่พบในระบบ</span>
+            )}
+            
+            {cameraIDRegistered === true && (
+              <span className="error-text">Device ID นี้ถูกลงทะเบียนแล้ว</span>
             )}
           </label>
 
@@ -137,7 +172,16 @@ function AddCameraPopup({ isOpen, onClose, onAddCamera, username }) {
             </div>
           </label>
 
-          <button type="submit">Add</button>
+          <button 
+            type="submit" 
+            disabled={isSubmitDisabled}
+            style={{
+              opacity: isSubmitDisabled ? 0.5 : 1,
+              cursor: isSubmitDisabled ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Add
+          </button>
         </form>
       </div>
     </div>

@@ -92,15 +92,83 @@
     z-index: 10; /* ให้แน่ใจว่าปุ่มมีค่ามากกว่าค่าของปุ่มอื่น ๆ */
   }
     
- /* Responsive */
+ /* ================== Responsive for Tablets ================== */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    padding: 15px;
+  }
+
+  .service-box {
+    width: 200px;
+    height: 300px;
+    padding: 16px;
+  }
+
+  .service-box h2 {
+    font-size: 16px;
+  }
+
+  .service-box p {
+    font-size: 14px;
+  }
+}
+
+/* ================== Responsive for Medium Devices (Mobile / Narrow Tablets) ================== */
 @media (max-width: 768px) {
   .services-container {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
 
   .service-box {
     width: 90%;
     height: auto;
+  }
+
+  .service-box img {
+    height: 180px;
+  }
+
+  .dashboard-container h1 {
+    font-size: 24px;
+  }
+
+  .push-notification-container {
+    margin: 15px;
+  }
+
+  .push-notification-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* ================== Responsive for Small Devices (Phones) ================== */
+@media (max-width: 480px) {
+  .service-box {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .service-box img {
+    height: 150px;
+  }
+
+  .service-box h2 {
+    font-size: 15px;
+  }
+
+  .service-box p {
+    font-size: 13px;
+  }
+
+  .dashboard-container h1 {
+    font-size: 20px;
+  }
+
+  .push-notification-btn {
+    width: 100%;
+    padding: 10px;
   }
 }

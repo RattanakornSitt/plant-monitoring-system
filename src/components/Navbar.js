@@ -8,7 +8,10 @@ const Navbar = ({ user, handleLogOut }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const popoverRef = useRef(null);
 
-  const unreadNotifications = notifications.filter(n => !n.read).length;
+  const unreadNotifications =
+  user?.username === "rattanakorn123"
+    ? notifications.filter(n => !n.read).length
+    : 0;
 
   // Save notifications to localStorage whenever they change
   useEffect(() => {
@@ -116,57 +119,57 @@ const Navbar = ({ user, handleLogOut }) => {
         <Link to="/pages/aboutus">About Us</Link>
         <Link to="/pages/support">Support</Link>
 
-        {user && (
-          <div className="notification-container">
-            <div className="notification-icon" onClick={toggleNotifications}>
-              <img src="/img/bell-icon.png" alt="Notifications" className="bell-icon" />
-              {unreadNotifications > 0 && (
-                <span className="notification-count">{unreadNotifications}</span>
-              )}
-            </div>
+      {user && (
+      <div className="notification-container">
+        <div className="notification-icon" onClick={toggleNotifications}>
+          <img src="/img/bell-icon.png" alt="Notifications" className="bell-icon" />
+          {unreadNotifications > 0 && (
+            <span className="notification-count">{unreadNotifications}</span>
+          )}
+        </div>
 
-            {showNotifications && (
-              <div className="notification-popover" ref={popoverRef}>
-                <h3>Recent Notifications</h3>
-                <ul className="notification-list">
-                  {Array.isArray(notifications) && notifications.length > 0 ? (
-                    [...notifications]
-                      .sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`))
-                      .slice(0, 3)
-                      .map((notification) => (
-                        <li
-                          key={notification.id}
-                          className={notification.read ? '' : 'unread'}
-                          onClick={() => markAsRead(notification.id)}
-                        >
-                          <Link
-                            to="/pages/Notifications"
-                            onClick={() => {
-                              setShowNotifications(false);
-                            }}
-                          >
-                            {isNew(notification.date, notification.time) && <span className="new-tag">New</span>}
-                            <small>
-                              {formatNotificationDate(notification.date, notification.time)}{" "}
-                              {notification.description}
-                            </small>
-                          </Link>
-                        </li>
-                      ))
-                  ) : (
-                    <p>No notifications available.</p>
-                  )}
-                </ul>
-                <Link to="/pages/Notifications" className="view-all-link" onClick={() => {
-                  setShowNotifications(false);
-                  handleViewAllClick();
-                }}>
-                  View All
-                </Link>
-              </div>
-            )}
+        {showNotifications && user.username === "rattanakorn123" && (
+          <div className="notification-popover" ref={popoverRef}>
+            <h3>Recent Notifications</h3>
+            <ul className="notification-list">
+              {Array.isArray(notifications) && notifications.length > 0 ? (
+                [...notifications]
+                  .sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`))
+                  .slice(0, 3)
+                  .map((notification) => (
+                    <li
+                      key={notification.id}
+                      className={notification.read ? '' : 'unread'}
+                      onClick={() => markAsRead(notification.id)}
+                    >
+                      <Link
+                        to="/pages/Notifications"
+                        onClick={() => {
+                          setShowNotifications(false);
+                        }}
+                      >
+                        {isNew(notification.date, notification.time) && <span className="new-tag">New</span>}
+                        <small>
+                          {formatNotificationDate(notification.date, notification.time)}{" "}
+                          {notification.description}
+                        </small>
+                      </Link>
+                    </li>
+                  ))
+              ) : (
+                <p>No notifications available.</p>
+              )}
+            </ul>
+            <Link to="/pages/Notifications" className="view-all-link" onClick={() => {
+              setShowNotifications(false);
+              handleViewAllClick();
+            }}>
+              View All
+            </Link>
           </div>
         )}
+      </div>
+    )}
 
         {user ? (
           <div className="user-profile-dropdown">

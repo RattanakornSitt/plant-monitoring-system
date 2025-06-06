@@ -1,9 +1,10 @@
 /* Real-time Video Page Styles */
 .real-time-video-container {
-    font-family: Arial, sans-serif;
-    padding: 20px 20px;
-    max-width: 1200px;
-    z-index: 1000;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1;
 }
 
 /* Real-time Video Content Section */
@@ -24,14 +25,55 @@
 
 /* ปรับสไตล์ของ .video-box */
 .video-box {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 80vw;         /* ลดจาก 90vw เป็น 80vw เพื่อให้สมดุล */
-    max-width: 1000px;   /* จำกัดขนาดสูงสุด */
-    position: center;
-    z-index: 1;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80vw;
+  max-width: 1000px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  z-index: 1;
+  min-height: auto;         /* ไม่ต้องกำหนดความสูงขั้นต่ำแบบตายตัว */
+  aspect-ratio: 16 / 9;     /* ให้กล่องเตี้ยลงตามวิดีโอ */
+}
+
+/* ข้อความโหลดวิดีโอ */
+.video-placeholder {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ข้อความโหลดวิดีโอ */
+/* Placeholder สำหรับตอนโหลด */
+.video-placeholder {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: center;
 }
 
 /* ปรับตำแหน่งของปุ่ม Fullscreen ให้อยู่ด้านล่างกลางของ video box */
@@ -47,7 +89,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    z-index: 1;
+    z-index: 2;
 }
 
 .fullscreen-button:hover {
@@ -55,9 +97,11 @@
 }
 
 /* Fullscreen Mode */
-.video-iframe:fullscreen {
-    width: 100%;
-    height: 100%;
+.video-iframe:fullscreen,
+.video-image:fullscreen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .video-iframe {
@@ -69,32 +113,54 @@
     border: none;          /* ไม่มีขอบ */
   }
 
-  /* Responsive Design */
-@media (max-width: 1024px) {
-    .video-box {
-        width: 95vw;
-        padding: 30px;
-    }
-    
-    .video-iframe {
-        height: auto;
-        max-width: 100%;
-    }
+/* ปรับภาพให้จัดกึ่งกลาง */
+/* วิดีโอภาพ (img) */
+.video-image {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .video-box {
-        width: 100%;
-        padding: 20px;
-    }
-    
-    .video-iframe {
-        width: 100%;
-        height: auto;
-    }
-    
-    .fullscreen-button {
-        padding: 10px 15px;
-        font-size: 1rem;
-    }
+  /* Responsive Design */
+/* สำหรับมือถือขนาดเล็ก (≤ 480px) */
+@media (max-width: 480px) {
+  .real-time-video-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .real-time-video-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  .video-box {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .video-iframe,
+  .video-image {
+    max-width: 100%;
+    aspect-ratio: auto; /* ปล่อยให้ความสูงปรับตามความเหมาะสม */
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .fullscreen-button {
+    bottom: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .video-placeholder {
+    font-size: 1rem;
+    padding: 15px;
+  }
 }
+

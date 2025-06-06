@@ -280,3 +280,111 @@
     transform: translateY(0);
   }
 }
+
+/* Tablet (768px หรือต่ำกว่า) */
+@media (max-width: 768px) {
+  .services-title {
+    font-size: 2rem;
+  }
+
+  .welcome-message {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .card-container {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .details-button,
+  .add-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .overview-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+/* Mobile (480px หรือต่ำกว่า) */
+@media (max-width: 480px) {
+  .services-title {
+    font-size: 1.6rem;
+  }
+
+  .welcome-message {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .card-container {
+    gap: 10px;
+  }
+
+  .card {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-id,
+  .card-location,
+  .card-description {
+    font-size: 13px;
+  }
+
+  .details-button,
+  .add-button {
+    font-size: 0.85rem;
+    padding: 7px 14px;
+  }
+
+  .overview-button {
+    font-size: 13px;
+    padding: 6px 12px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .clear-camera-btn,
+  .edit-camera-btn {
+    font-size: 18px;
+  }
+
+  .edit-camera-popup-form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .edit-camera-popup-form h3 {
+    font-size: 18px;
+  }
+
+  .edit-camera-popup-buttons-container {
+    flex-direction: column;
+  }
+
+  .edit-camera-popup-save-button,
+  .edit-camera-popup-cancel-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

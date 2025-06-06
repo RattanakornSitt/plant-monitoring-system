@@ -28,9 +28,9 @@ function AboutUs() {
 
           {/* About Product */}
           <section className="about-product box">
-            <h2>About Our Product</h2>
+            <h2>About Our Device</h2>
             <div className="product-image">
-              <img src="/img/product.jpg" alt="Our Product" />
+              <img src="/img/device.jpg" alt="Our Product" />
             </div>
           </section>
 

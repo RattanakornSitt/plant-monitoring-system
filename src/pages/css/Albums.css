@@ -33,12 +33,19 @@ h2.albums-title {
 }
 
 .albums-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;      /* ไม่ขึ้นบรรทัดใหม่ */
+  overflow-x: auto;       /* เพิ่ม scroll แนวนอนเมื่อเนื้อหายาวเกิน */
   gap: 20px;
+  padding-bottom: 20px;
+  scroll-behavior: smooth; /* เลื่อนนุ่มนวล */
 }
 
 .album-card {
+  flex: 0 0 auto;              /* ให้ขนาดคงที่ไม่ยืด */
+  width: 200px;                /* ขนาดกล่องแต่ละอัน */
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,7 +56,7 @@ h2.albums-title {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;  /* จัดข้อความให้อยู่กึ่งกลาง */
+  text-align: center;
 }
 
 .album-image:hover {
@@ -58,8 +65,8 @@ h2.albums-title {
 }
 
 .album-image {
-  width: 50%;
-  height: 50%;
+  width: 60%;     /* ปรับขนาดรูปให้ใหญ่ขึ้นเล็กน้อย */
+  height: auto;
   margin-bottom: 10px;
 }
 
@@ -68,4 +75,92 @@ h2.albums-title {
   font-weight: bold;
   color: #333;
   text-align: center;
+}
+
+/* ========== Responsive Design for Albums Section ========== */
+
+/* Tablet (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+  h2.albums-title {
+    font-size: 24px;
+  }
+
+  .selected-date {
+    font-size: 16px;
+  }
+
+  .album-card {
+    width: 180px;
+    padding: 16px;
+  }
+
+  .album-text {
+    font-size: 18px;
+  }
+
+  .album-image {
+    width: 70%;
+  }
+}
+
+/* Mobile (≤ 768px) */
+@media screen and (max-width: 768px) {
+  .albums-container {
+    padding: 15px;
+  }
+
+  h2.albums-title {
+    font-size: 22px;
+  }
+
+  .selected-date {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .album-card {
+    width: 160px;
+    padding: 14px;
+  }
+
+  .album-text {
+    font-size: 16px;
+  }
+
+  .album-image {
+    width: 80%;
+  }
+
+  .albums-grid {
+    gap: 15px;
+  }
+}
+
+/* Extra Small Devices (≤ 480px) */
+@media screen and (max-width: 480px) {
+  h2.albums-title {
+    font-size: 20px;
+  }
+
+  .selected-date {
+    font-size: 14px;
+  }
+
+  .album-card {
+    width: 140px;
+    padding: 12px;
+  }
+
+  .album-text {
+    font-size: 14px;
+  }
+
+  .album-image {
+    width: 90%;
+  }
+
+  .no-album-message {
+    font-size: 16px;
+    margin-top: 30px;
+  }
 }

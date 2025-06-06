@@ -11,15 +11,29 @@ export const NotificationProvider = ({ children }) => {
   const [newNotification, setNewNotification] = useState(null);
   const [plantImages, setPlantImages] = useState([]);
   const [diseases, setDiseases] = useState([]);
-  const { user } = useUser(); // Ensure user is available
+  const { user } = useUser();
   const latestNotificationId = useRef(null);
+  const [userProducts, setUserProducts] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0); // เพิ่มการนับแจ้งเตือนที่ยังไม่ได้อ่าน
 
   // Fetch data from Firestore
   useEffect(() => {
-    if (!user) return; // Ensure user is present before fetching data
+    if (!user || !user.username) return;
 
     const plantImagesRef = collection(db, "PLANT_IMAGES");
     const diseaseRef = collection(db, "DISEASE");
+    const cameraRef = collection(db, "CAMERA");
+
+    // ดึงข้อมูล products ของ user นั้นๆ
+    const unsubscribeCamera = onSnapshot(cameraRef, (snapshot) => {
+      const products = snapshot.docs
+        .map((doc) => doc.data())
+        .filter((data) => data.username === user.username)
+        .map((data) => parseInt(data.product));
+      
+      console.log(`User ${user.username} products:`, products);
+      setUserProducts(products);
+    });
 
     const unsubscribePlantImages = onSnapshot(plantImagesRef, (snapshot) => {
       const newImages = snapshot.docs.map((doc) => ({
@@ -41,17 +55,26 @@ export const NotificationProvider = ({ children }) => {
     return () => {
       unsubscribePlantImages();
       unsubscribeDiseases();
+      unsubscribeCamera();
     };
   }, [user]);
 
-  // Process and group notifications
+  // Process and group notifications - กรองเฉพาะ product ของ user
   useEffect(() => {
-    if (plantImages.length === 0 || !user) return; // Ensure user is present
+    if (plantImages.length === 0 || !user || userProducts.length === 0) return;
 
-    const readStatusMap = JSON.parse(localStorage.getItem(`readNotifications_${user?.uid}`) || '{}');
+    const readStatusMap = JSON.parse(localStorage.getItem(`readNotifications_${user.uid}`) || '{}');
 
     const groupedNotifications = plantImages.reduce((acc, plant) => {
       if (!plant.date || !plant.time) return acc;
+
+      const plantProduct = parseInt(plant["product"]);
+      
+      // ✅ กรองเฉพาะ product ที่เป็นของ user นี้เท่านั้น
+      if (!userProducts.includes(plantProduct)) {
+        console.log(`Filtering out plant with product ${plantProduct} - not owned by ${user.username}`);
+        return acc;
+      }
 
       const hourKey = `${plant.date}_${plant.time.substring(0, 2)}`;
       const plantName = plant["plant-name"] || "Unknown";
@@ -64,8 +87,8 @@ export const NotificationProvider = ({ children }) => {
           plantName,
           images: [],
           confidence: plant.confidence,
-          product_ID: parseInt(plant["product_ID"]) || null, // แก้ตรงนี้
-          camera_ID: parseInt(plant["camera_ID"]) || null,   // แก้ตรงนี้
+          product: plantProduct,
+          camera: parseInt(plant["camera"]) || null,
           documents: 0,
           symptoms: "",
           solutions: "",
@@ -90,17 +113,23 @@ export const NotificationProvider = ({ children }) => {
     const notificationsArray = Object.values(groupedNotifications).sort((a, b) => {
       const aDate = new Date(`${a.date}T${a.time}`);
       const bDate = new Date(`${b.date}T${b.time}`);
-      return aDate - bDate;
+      return bDate - aDate; // เรียงจากใหม่ไปเก่า
     });
 
     setNotifications(notificationsArray);
-  }, [plantImages, diseases, user]);
+    
+    // นับจำนวนแจ้งเตือนที่ยังไม่ได้อ่าน
+    const unreadNotifications = notificationsArray.filter(n => !n.read);
+    setUnreadCount(unreadNotifications.length);
+    
+    console.log(`User ${user.username} has ${notificationsArray.length} notifications, ${unreadNotifications.length} unread`);
+  }, [plantImages, diseases, user, userProducts]);
 
-  // Check for new notification and show popup
+  // Check for new notification and show popup - เฉพาะของ user นี้
   useEffect(() => {
-    if (notifications.length === 0 || !user) return; // Ensure user is present
+    if (notifications.length === 0 || !user) return;
 
-    const latest = notifications[notifications.length - 1];
+    const latest = notifications[0]; // เอาตัวล่าสุด (เรียงจากใหม่ไปเก่าแล้ว)
     const { date, time } = latest;
 
     const fullDateString = `${date}T${time}`;
@@ -111,11 +140,14 @@ export const NotificationProvider = ({ children }) => {
       return;
     }
 
-    const notificationHour = notificationTime.toISOString().slice(0, 13); // e.g., 2025-04-18T09
-    const shownHoursKey = `popupShownHours_${user?.uid}`; // Check user exists before using uid
+    const notificationHour = notificationTime.toISOString().slice(0, 13);
+    const shownHoursKey = `popupShownHours_${user.uid}`;
     const shownHours = JSON.parse(localStorage.getItem(shownHoursKey) || "[]");
 
-    if (!shownHours.includes(notificationHour)) {
+    // ตรวจสอบว่าเป็นแจ้งเตือนใหม่และยังไม่ได้แสดง popup
+    if (!shownHours.includes(notificationHour) && !latest.read) {
+      console.log(`Showing popup for user ${user.username}, product ${latest.product}:`, latest);
+      
       setNewNotification(latest);
       setShowPopup(true);
       latestNotificationId.current = latest.id;
@@ -141,6 +173,24 @@ export const NotificationProvider = ({ children }) => {
     const readStatusMap = JSON.parse(localStorage.getItem(`readNotifications_${user?.uid}`) || '{}');
     readStatusMap[hourKey] = true;
     localStorage.setItem(`readNotifications_${user?.uid}`, JSON.stringify(readStatusMap));
+    
+    // อัพเดตจำนวนแจ้งเตือนที่ยังไม่ได้อ่าน
+    const unreadNotifications = updated.filter(n => !n.read);
+    setUnreadCount(unreadNotifications.length);
+  };
+
+  const markAllAsRead = () => {
+    const updated = notifications.map((n) => ({ ...n, read: true }));
+    setNotifications(updated);
+    setUnreadCount(0);
+
+    // Save all as read in localStorage
+    const readStatusMap = JSON.parse(localStorage.getItem(`readNotifications_${user?.uid}`) || '{}');
+    notifications.forEach(n => {
+      const hourKey = `${n.date}_${n.time.substring(0, 2)}`;
+      readStatusMap[hourKey] = true;
+    });
+    localStorage.setItem(`readNotifications_${user?.uid}`, JSON.stringify(readStatusMap));
   };
 
   return (
@@ -154,6 +204,9 @@ export const NotificationProvider = ({ children }) => {
         closePopup,
         setNewNotification,
         markNotificationAsRead,
+        markAllAsRead,
+        unreadCount, // เพิ่มสำหรับ navbar
+        userProducts, // เพิ่มเพื่อให้ component อื่นเข้าถึงได้
       }}
     >
       {children}
@@ -161,15 +214,19 @@ export const NotificationProvider = ({ children }) => {
       {showPopup && newNotification && (
         <div className="popup-container">
           <div className="popup">
-            <h3>New Notification</h3>
+            <h3>🚨 New Plant Disease Alert</h3>
+            <div className="popup-header">
+              <span className="product-badge">Product #{newNotification.product}</span>
+              <span className="user-badge">👤 {user.username}</span>
+            </div>
             <p>
-              <strong>Plant:</strong> {newNotification.plantName}
+              <strong>🌱 Plant Disease:</strong> {newNotification.plantName}
             </p>
             <p>
-              <strong>Confidence:</strong> {parseFloat(newNotification.confidence).toFixed(2)}%
+              <strong>🎯 Confidence:</strong> {parseFloat(newNotification.confidence).toFixed(2)}%
             </p>
             <p>
-              <strong>Detected at:</strong>{" "}
+              <strong>⏰ Detected at:</strong>{" "}
               {new Date(`${newNotification.date}T${newNotification.time}`).toLocaleString(undefined, {
                 year: "numeric",
                 month: "2-digit",
@@ -180,10 +237,10 @@ export const NotificationProvider = ({ children }) => {
               }).replace(/:\d{2}$/, ":00")}
             </p>
             <p>
-              <strong>Symptoms:</strong> {newNotification.symptoms}
+              <strong>🔴 Symptoms:</strong> {newNotification.symptoms}
             </p>
             <p>
-              <strong>Solutions:</strong> {newNotification.solutions}
+              <strong>💊 Solutions:</strong> {newNotification.solutions}
             </p>
             <div className="popup-images">
               <img
@@ -191,9 +248,11 @@ export const NotificationProvider = ({ children }) => {
                 alt={`Plant ${newNotification.plantName}`}
               />
             </div>
-            <button onClick={closePopup} className="popup-close-btn">
-              Close
-            </button>
+            <div className="popup-actions">
+              <button onClick={closePopup} className="popup-close-btn">
+                ✅ Got it
+              </button>
+            </div>
           </div>
         </div>
       )}

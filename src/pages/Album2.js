@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import './css/Albums.css'; // Make sure your styles are defined here
 import { db } from './firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 function Album1T() {
   const { date } = useParams();
+  const location = useLocation();
   const [images, setImages] = useState([]);
+  const sortedHours = Object.keys(images).sort((a, b) => parseInt(a) - parseInt(b));
+
+    // ดึง query string จาก URL
+  const queryParams = new URLSearchParams(location.search);
+  const cameraName = queryParams.get('cameraName');
+  const product = queryParams.get('product');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -37,19 +44,23 @@ function Album1T() {
 
   return (
     <div className="albums-container">
-      <Link to="/pages/albums-test" className="back-button">
+      <Link to={`/pages/albums-test?cameraName=${cameraName}&product=${product}`} className="back-button">
         <img src="/img/back-icon.png" alt="Back" className="back-icon" />
       </Link>
-      <h2 className="albums-title">Butterhead Album</h2>
+      <h2 className="albums-title">{cameraName || 'Unknown Camera'} Album</h2>
       <p className="selected-date">{date}</p>
 
       {Object.keys(images).length > 0 ? (
         <div className="albums-grid">
-          {Object.keys(images).map((hour, index) => (
-            <Link key={index} to={`/pages/album3/${date}/${hour}`} className="album-card">
-              <img src="/img/folder.png" alt="Album Icon" className="album-image" />
-              <p className="album-text">{hour}:00</p>
-            </Link>
+          {sortedHours.map((hour, index) => (
+          <Link
+            key={index}
+            to={`/pages/album3/${date}/${hour}?cameraName=${encodeURIComponent(cameraName)}&product=${encodeURIComponent(product || '')}`}
+            className="album-card"
+          >
+            <img src="/img/folder.png" alt="Album Icon" className="album-image" />
+            <p className="album-text">{hour}:00</p>
+          </Link>
           ))}
         </div>
       ) : (

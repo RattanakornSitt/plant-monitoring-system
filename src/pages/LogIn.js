@@ -4,6 +4,7 @@ import { auth, googleProvider } from "./firebaseConfig"; // Firebase auth and Go
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup } from "firebase/auth";
 import { db } from "./firebaseConfig";
 import { collection, query, where, getDocs, setDoc, doc, getDoc, onSnapshot } from "firebase/firestore"; // Firestore functions
+import { useUser } from "./UserContext"; // ปรับ path ให้ตรงกับไฟล์จริง
 import "./css/LogIn.css";
 
 function LogIn({ togglePopup, toggleToSignUp }) {
@@ -14,6 +15,7 @@ function LogIn({ togglePopup, toggleToSignUp }) {
   const [loading, setLoading] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Track if the user is admin
   const [rememberMe, setRememberMe] = useState(false); // State to track "Remember Me"
+  const { setUser } = useUser(); // ดึง setUser จาก context
   const navigate = useNavigate();
 
    // เมื่อโหลดหน้าเว็บ ให้ตรวจสอบ localStorage ว่ามีข้อมูล Remember Me หรือไม่
@@ -45,7 +47,16 @@ function LogIn({ togglePopup, toggleToSignUp }) {
         photoURL: user.photoURL,
         createdAt: new Date(),
       });
-
+      // ดึงข้อมูลที่เพิ่งเซฟ
+      const userData = {
+        username: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        createdAt: new Date(),
+      };
+      setUser(userData); // 👈 บันทึกลง context
+      localStorage.setItem("user", JSON.stringify(userData)); // เก็บใน localStorage
+      
       console.log("User signed up with Google and data saved to Firestore");
       togglePopup(); // Close the popup after successful registration
       navigate("/pages/main"); // Navigate to the dashboard after successful login
@@ -95,12 +106,19 @@ function LogIn({ togglePopup, toggleToSignUp }) {
 
       // ถ้าผู้ใช้ล็อกอินสำเร็จ
       if (userData && userData.username) {
+        setUser(userData); // 👈 อัปเดต context ด้วยข้อมูลผู้ใช้
         // หากเลือก Remember Me ให้เก็บข้อมูลใน localStorage
         if (rememberMe) {
+          // เก็บข้อมูลผู้ใช้ลง localStorage
+          localStorage.setItem("username", userData.username);
+          localStorage.setItem("userId", user.uid);
           localStorage.setItem("userEmail", userEmail);
           localStorage.setItem("userPassword", password);
           localStorage.setItem("rememberMe", "true"); // Set Remember Me to true in localStorage
         } else {
+          // เก็บข้อมูลผู้ใช้ลง localStorage
+          localStorage.setItem("username", userData.username);
+          localStorage.setItem("userId", user.uid);
           localStorage.removeItem("userEmail");
           localStorage.removeItem("userPassword");
           localStorage.removeItem("rememberMe");

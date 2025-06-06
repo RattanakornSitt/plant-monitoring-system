@@ -73,3 +73,67 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+/* สำหรับหน้าจอมือถือ (ความกว้าง <= 480px) */
+@media (max-width: 480px) {
+  .popup {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .popup h2 {
+    font-size: 20px;
+  }
+
+  .popup-actions button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .notification-image {
+    width: 80%;
+    max-height: 150px;
+    margin: 12px auto;
+  }
+
+  .id-row {
+    gap: 8px;
+  }
+
+  .id-tag {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+
+/* สำหรับหน้าจอแท็บเล็ต (ความกว้าง <= 768px) */
+@media (max-width: 768px) {
+  .popup {
+    width: 70%;
+    padding: 20px;
+  }
+
+  .popup h2 {
+    font-size: 22px;
+  }
+
+  .popup-actions button {
+    padding: 8px 14px;
+    font-size: 15px;
+  }
+
+  .notification-image {
+    width: 60%;
+    max-height: 180px;
+    margin: 14px auto;
+  }
+
+  .id-row {
+    gap: 10px;
+  }
+
+  .id-tag {
+    font-size: 13px;
+    padding: 6px 9px;
+  }
+}

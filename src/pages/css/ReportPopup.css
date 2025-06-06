@@ -134,3 +134,65 @@
     }
   }
   
+  /* Responsive for smaller devices */
+@media (max-width: 600px) {
+  .report-popup-content {
+    width: 90%;
+    padding: 20px 25px;
+    border-radius: 12px;
+  }
+
+  .report-popup-content h2 {
+    font-size: 20px;
+  }
+
+  .report-popup-close {
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+  }
+
+  .report-popup-form input,
+  .report-popup-form textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .report-popup-submit-button {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .case-id-display {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}
+
+/* สำหรับมือถือจอเล็กมาก (≤ 360px) */
+@media (max-width: 360px) {
+  .report-popup-content {
+    padding: 15px 20px;
+  }
+
+  .report-popup-content h2 {
+    font-size: 18px;
+  }
+
+  .report-popup-form input,
+  .report-popup-form textarea {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .report-popup-submit-button {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .report-popup-close {
+    font-size: 20px;
+    top: 8px;
+    right: 12px;
+  }
+}

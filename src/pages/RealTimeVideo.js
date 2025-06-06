@@ -2,19 +2,28 @@ import React, { useState, useEffect } from 'react';
 import './css/RealTimeVideo.css';
 import { db, onSnapshot } from './firebaseConfig';
 import { collection } from "firebase/firestore";
+import { useLocation } from 'react-router-dom';
 
 function RealTimeVideo() {
   const [videoSrc, setVideoSrc] = useState('');
+  const location = useLocation();
+
+  // ดึง query string จาก URL
+  const queryParams = new URLSearchParams(location.search);
+  const product = Number(queryParams.get('product'));
+  const cameraName = queryParams.get('cameraName');
 
   useEffect(() => {
+    if (!product) return;
+
     const videoCollectionRef = collection(db, 'settings');
 
     const unsubscribe = onSnapshot(videoCollectionRef, (querySnapshot) => {
       querySnapshot.forEach((docSnapshot) => {
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
-          if (data.ngrok_url) {
-            setVideoSrc(data.ngrok_url); // ใช้ ngrok_url แทน url
+          if (data.product === product && data.ngrok_url) {
+            setVideoSrc(data.ngrok_url);
           }
         }
       });
@@ -23,7 +32,7 @@ function RealTimeVideo() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [product]);
 
   const handleFullScreen = () => {
     const iframeElement = document.getElementById('realTimeVideo');
@@ -45,7 +54,7 @@ function RealTimeVideo() {
       </button>
 
       <section className="real-time-video-content">
-        <h1>Video Real Time</h1>
+        <h1>Video Real Time {cameraName && `(${cameraName})`}</h1>
 
         <div className="video-box">
           {videoSrc ? (
@@ -59,7 +68,7 @@ function RealTimeVideo() {
               className="video-iframe"
             />
           ) : (
-            <p>Loading video...</p>
+            <p>ไม่พบข้อมูลวิดีโอ หรือวิดีโอกำลังโหลด...</p>
           )}
           <button className="fullscreen-button" onClick={handleFullScreen}>
             Fullscreen

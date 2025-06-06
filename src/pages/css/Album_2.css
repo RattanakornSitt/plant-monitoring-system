@@ -15,7 +15,7 @@
   color: #333;
   font-size: 25px;
   font-weight: bold;
-  z-index: 10; /* เพิ่ม z-index เพื่อให้ปุ่มอยู่เหนือ content */
+  z-index: 1; /* เพิ่ม z-index เพื่อให้ปุ่มอยู่เหนือ content */
 }
 
 .back-icon {
@@ -41,17 +41,17 @@
 }
 
 /* กริดสำหรับจัดรูปภาพ */
-.image-container {
+.image-container-3 {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: 20px 0;
-  z-index: 1000;
+  z-index: 1;
 }
 
 /* กริดสำหรับแสดงรูปภาพ */
-.image-grid {
+.image-grid-3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* จัดแถวละ 4 รูป */
   gap: 20px; /* ระยะห่างระหว่างรูป */
@@ -60,14 +60,14 @@
 }
 
 /* สไตล์ของแต่ละกล่องภาพ */
-.image-card {
+.image-card-3 {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
-.image-card:hover {
+.image-card-3:hover {
   transform: scale(1.05); /* ขยายรูปเมื่อวางเมาส์ */
 }
 
@@ -82,7 +82,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .camera-buttons button {
@@ -100,21 +100,44 @@
   color: white;
 }
 
+/* overlay เต็มจอพื้นหลังโปร่งแสง */
+.overlay-for-images {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* รูปขยาย */
+.expanded-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 0 3px rgba(255,255,255,0.7);
+}
+
+
 /* ปรับความยืดหยุ่นของกริด */
 @media (max-width: 1200px) {
-  .image-grid {
+  .image-grid-3 {
     grid-template-columns: repeat(3, 1fr); /* จัดแถวละ 3 รูปเมื่อหน้าจอเล็ก */
   }
 }
 
 @media (max-width: 900px) {
-  .image-grid {
+  .image-grid-3 {
     grid-template-columns: repeat(2, 1fr); /* จัดแถวละ 2 รูป */
   }
 }
 
 @media (max-width: 600px) {
-  .image-grid {
+  .image-grid-3 {
     grid-template-columns: 1fr; /* จัดแถวเดียวเมื่อหน้าจอเล็กที่สุด */
   }
 }

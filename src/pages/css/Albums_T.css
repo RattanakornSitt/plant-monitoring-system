@@ -146,4 +146,96 @@
     color: white;
   }
   
-  
+  /* ========== Responsive Design for Albums.css ========== */
+
+/* Tablet (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+  .albumsT-title {
+    font-size: 28px;
+    top: 15px;
+    left: 40px;
+  }
+
+  .albumT-subtitle {
+    font-size: 16px;
+  }
+
+  .calendar-header span {
+    font-size: 18px;
+  }
+
+  .calendar-day {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile (≤ 768px) */
+@media screen and (max-width: 768px) {
+  .albumsT-container {
+    padding: 15px;
+  }
+
+  .albumsT-title {
+    font-size: 24px;
+    top: 10px;
+    left: 20px;
+  }
+
+  .albumT-subtitle {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .calendar-grid {
+    gap: 8px;
+  }
+
+  .calendar-day {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .calendar-header span {
+    font-size: 16px;
+  }
+
+  .calendar-header button {
+    font-size: 20px;
+  }
+}
+
+/* Extra Small Devices (≤ 480px) */
+@media screen and (max-width: 480px) {
+  .albumsT-title {
+    font-size: 20px;
+    left: 15px;
+    top: 10px;
+  }
+
+  .albumT-subtitle {
+    font-size: 13px;
+  }
+
+  .calendar-day {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .calendar-header span {
+    font-size: 14px;
+  }
+
+  .calendar-header button {
+    font-size: 18px;
+  }
+}

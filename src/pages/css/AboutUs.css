@@ -138,3 +138,110 @@
     color: #1b858d;
     margin-right: 10px;
 }
+
+/* ===================== Responsive Design ===================== */
+
+/* Tablet (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+  .about-us-info h1 {
+    font-size: 2rem;
+  }
+
+  .box h2 {
+    font-size: 1.5rem;
+  }
+
+  .box p,
+  .key-features li,
+  .contact-item {
+    font-size: 18px;
+  }
+
+  .product-system-container {
+    gap: 20px;
+  }
+
+  .side-by-side-boxes {
+    gap: 20px;
+  }
+
+  .contact-us h2 {
+    font-size: 24px;
+  }
+}
+
+/* Mobile (≤ 768px) */
+@media screen and (max-width: 768px) {
+  .about-us-container {
+    padding: 30px 20px;
+  }
+
+  .about-us-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-us-info p {
+    font-size: 0.95rem;
+  }
+
+  .side-by-side-boxes {
+    flex-direction: column;
+  }
+
+  .box {
+    padding: 30px;
+  }
+
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .key-features li {
+    font-size: 18px;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-item {
+    justify-content: center;
+  }
+
+  .contact-us h2 {
+    font-size: 22px;
+  }
+}
+
+/* Extra Small Devices (≤ 480px) */
+@media screen and (max-width: 480px) {
+  .about-us-container {
+    padding: 20px 15px;
+  }
+
+  .about-us-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .box {
+    padding: 20px;
+  }
+
+  .box h2 {
+    font-size: 1.2rem;
+  }
+
+  .box p {
+    font-size: 16px;
+  }
+
+  .key-features li {
+    font-size: 16px;
+  }
+
+  .contact-item {
+    font-size: 16px;
+  }
+}

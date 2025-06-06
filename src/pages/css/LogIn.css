@@ -98,31 +98,6 @@
   text-decoration: underline;
 }
 
-/* Adjustments for mobile */
-@media (max-width: 500px) {
-  .popup-l-content {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .popup-l-content h2 {
-    font-size: 20px;
-  }
-
-  .popup-l-content input[type="text"],
-  .popup-l-content input[type="password"] {
-    font-size: 12px;
-  }
-
-  .popup-login-btn {
-    font-size: 14px;
-  }
-
-  .google-login-btn {
-    font-size: 14px;
-  }
-}
-
 /* ปุ่ม Continue with Google */
 .google-login-btn {
   background-color: #ffffff;
@@ -184,4 +159,105 @@
 .error-message {
   color: red;
   margin-top: 10px;
+}
+
+/* =============== Responsive สำหรับแท็บเล็ต =============== */
+@media (max-width: 768px) {
+  .popup-l-content {
+    width: 95%;
+    padding: 24px;
+  }
+
+  .popup-l-content h2 {
+    font-size: 22px;
+  }
+
+  .popup-l-content input[type="text"],
+  .popup-l-content input[type="password"] {
+    font-size: 13px;
+    padding: 9px;
+  }
+
+  .popup-login-btn,
+  .google-login-btn {
+    font-size: 15px;
+    padding: 9px;
+  }
+
+  .google-logo {
+    width: 16px;
+    height: 16px;
+  }
+
+  .reset-password-form input {
+    width: 90%;
+  }
+}
+
+/* =============== Responsive สำหรับมือถือขนาดเล็ก =============== */
+@media (max-width: 480px) {
+  .popup-l-content {
+    width: 90%;
+    padding: 18px;
+  }
+
+  .popup-l-content h2 {
+    font-size: 20px;
+  }
+
+  .popup-l-content input[type="text"],
+  .popup-l-content input[type="password"] {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .popup-login-btn,
+  .google-login-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .google-logo {
+    width: 14px;
+    height: 14px;
+  }
+
+  .popup-links {
+    font-size: 12px;
+  }
+
+  .reset-password-form input {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .reset-password-form button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* =============== Responsive สำหรับมือถือแนวนอนหรือจอเล็กมาก =============== */
+@media (max-width: 360px) {
+  .popup-l-content {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .popup-l-content h2 {
+    font-size: 18px;
+  }
+
+  .popup-login-btn,
+  .google-login-btn {
+    font-size: 13px;
+  }
+
+  .popup-links {
+    font-size: 11px;
+  }
+
+  .reset-password-form button {
+    font-size: 13px;
+  }
 }

@@ -67,3 +67,82 @@
     font-size: 1.5rem;
   }
   
+  /* ===== Responsive สำหรับแท็บเล็ต (≤ 768px) ===== */
+@media (max-width: 768px) {
+  .plant-information-container {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .plant-information-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .plant-info-container {
+    flex-direction: column;
+    padding: 1.5rem;
+    min-height: auto;
+    gap: 1.5rem;
+  }
+
+  .plant-image-box img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .plant-info-box {
+    max-width: 100%;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .plant-info-box h2 {
+    font-size: 1.6rem;
+  }
+
+  .plant-info-box p,
+  .plant-info-box ul,
+  .plant-info-box li {
+    font-size: 1.2rem;
+  }
+}
+
+/* ===== Responsive สำหรับมือถือ (≤ 480px) ===== */
+@media (max-width: 480px) {
+  .plant-information-container {
+    padding: 1rem;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .plant-information-content h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .plant-info-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .plant-image-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .plant-info-box h2 {
+    font-size: 1.3rem;
+  }
+
+  .plant-info-box p,
+  .plant-info-box ul,
+  .plant-info-box li {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}

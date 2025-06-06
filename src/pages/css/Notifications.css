@@ -4,23 +4,50 @@
   align-items: flex-start; /* Align text to the left */
   margin-bottom: 20px;
   padding: 20px;
-  border: 1px solid #ddd;
+  text-align: left;
+  border: 1px solid #ffffff;
   border-radius: 10px;
-  background-color: #ddd;
+  background-color: #ffffff;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
   position: relative;
   width: 100%; /* กำหนดให้การ์ดเต็มความกว้าง */
-  max-width: 1000px; /* จำกัดขนาดสูงสุดของการ์ด */
+  max-width: none; /* จำกัดขนาดสูงสุดของการ์ด */
   box-sizing: border-box; /* รวม padding และ border ในขนาดของการ์ด */
+  padding-bottom: 2rem; /* เผื่อพื้นที่ปุ่มล่างขวา */
   z-index: 1;
 }
+
+.delete-noti-button {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgb(230, 230, 230);
+  border: none;
+  font-size: 1rem;
+  border-radius: 6px; /* มุมโค้ง */
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  transition: all 0.2s ease;
+}
+
+.delete-noti-button:hover {
+  background: #7c7c7c; /* พื้นหลังชมพูอ่อนแบบเตือน */
+  color: rgb(255, 255, 255);
+}
+
 .notifications-page {
+  background-color: #f0f8ff;
+  min-height: 100vh; /* ให้เต็มความสูงหน้าจอ */
+  width: 90vw;   
+  padding: 20px; /* เว้นขอบให้ดูดี */
+  box-sizing: border-box;
+  border-radius: 10px;
   z-index: 1;
 }
 
 .new-tag {
   background-color: #ff6347;
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 12px;
@@ -46,8 +73,8 @@
 }
 
 .notification-header .notification-date {
-  font-size: 14px;
-  color: #888;
+  font-size: 16px;
+  color: #000000;
   margin: 0;
 }
 
@@ -64,17 +91,117 @@
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 1;
 }
 
 /* Ensure the card content is properly spaced */
 .notification-card p {
-  font-size: 14px;
+  font-size: 16px;
   margin: 5px 0;
 }
 
 .notification-card strong {
   font-weight: bold;
+}
+
+/* Container ของตัวเลือกวันที่ */
+.date-filter-container {
+  margin: 20px auto;  /* จัดกึ่งกลางแนวนอน */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* จัดกึ่งกลางแนวนอน */
+  gap: 10px;
+  max-width: 300px;
+  width: 100%;
+}
+
+/* เพิ่มให้ container ครอบปฏิทินเต็มหน้าจอแนวตั้งและจัดกึ่งกลางแนวตั้งด้วย */
+.date-filter-wrapper {
+  display: flex;
+  justify-content: center; /* แนวนอน */
+  align-items: center;     /* แนวตั้ง */
+  width: 100%;
+}
+
+/* input type=date */
+.date-filter-container input[type="date"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.date-filter-container input[type="date"]:focus {
+  border-color: #ff6347; /* สีแดงอมส้ม ตาม new-tag */
+  outline: none;
+}
+
+/* ปุ่มรีเซ็ตวันที่ */
+.date-filter-container button {
+  padding: 8px 16px;
+  background-color: #20d3a6;
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.date-filter-container button:hover {
+  background-color: #58ecc0;
+}
+
+/* Overlay กลางหน้าจอ */
+.modal-overlay-noti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* กล่องภาพใหญ่ */
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: white;
+  border-radius: 8px;
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+/* ปุ่มปิด */
+.modal-close-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin-left: auto;
 }
 
 
@@ -96,5 +223,18 @@
     right: 20px; /* Align to the right */
     font-size: 14px;
     color: #333;
+  }
+}
+
+/* ปรับให้ responsive */
+@media (max-width: 480px) {
+  .date-filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .date-filter-container input[type="date"],
+  .date-filter-container button {
+    width: 100%;
   }
 }
